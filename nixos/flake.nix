@@ -9,17 +9,20 @@
 
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
     nixosConfigurations = {
-      hostname = nixpkgs.lib.nixosSystem {
+      "schwertleite" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./schwertleite/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.arakaki.username = "arakaki";
-            home-manager.users.arakaki.homeDirectory = "/home/arakaki";
-            home-manager.users.arakaki = ./home.nix;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.arakaki = {
+              imports = [ ../home.nix ];
+              home.username = "arakaki";
+              home.homeDirectory = "/home/arakaki";
+            };
           }
         ];
       };
