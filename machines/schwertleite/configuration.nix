@@ -144,6 +144,7 @@
     vim
     wget
     gcc
+    libtool
     gnumake
     cmake
   ];
