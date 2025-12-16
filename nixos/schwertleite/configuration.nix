@@ -126,6 +126,7 @@
   };
 
   programs.git.enable = true;
+  programs.ssh.startAgent = true;
   programs.firefox.enable = true;
 
   # Allow unfree packages
@@ -137,7 +138,7 @@
     vim
     wget
     gcc
-    make
+    gnumake
     cmake
   ];
 
