@@ -79,7 +79,7 @@
       username = {
         style_user = "green bold";
         style_root = "black bold";
-        format = "[$user](style)";
+        format = "[$user]($style)";
         disabled = false;
         show_always = true;
       };
@@ -108,6 +108,10 @@
     enableZshIntegration = true;
   };
   programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.yazi = {
     enable = true;
     enableZshIntegration = true;
   };

@@ -36,6 +36,9 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocales = [
+    "ja_JP.UTF-8/UTF-8"
+  ];
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -126,7 +129,10 @@
   };
 
   programs.git.enable = true;
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+  };
   programs.firefox.enable = true;
 
   # Allow unfree packages
@@ -141,6 +147,9 @@
     gnumake
     cmake
   ];
+  environment.variables = {
+    SSH_ASKPASS_REQUIRE = "prefer";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
