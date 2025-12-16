@@ -136,6 +136,9 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    gcc
+    make
+    cmake
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
