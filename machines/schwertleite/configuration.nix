@@ -147,6 +147,8 @@
     libtool
     gnumake
     cmake
+    ghostty
+    ghostty.terminfo
   ];
   environment.variables = {
     SSH_ASKPASS_REQUIRE = "prefer";
