@@ -24,6 +24,13 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  zramSwap = {
+    enable = true;
+    priority = 100;
+    algorithm = "lz4";
+    memoryPercent = 25;
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
