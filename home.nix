@@ -130,8 +130,8 @@
     settings = {
       font-family = "0xProto";
       font-feature = "-dlig";
-      theme = "tokyonight";
-      keybind = "shift+enter=text:_n";
+      theme = "TokyoNight";
+      keybind = "shift+enter=text:\\n";
       background-opacity = 0.9;
     };
   };
