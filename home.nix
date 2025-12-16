@@ -9,6 +9,10 @@
 {
   home.stateVersion = "25.11";
 
+  home.packages = with pkgs; [
+    wl-clipboard
+  ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
