@@ -1,17 +1,24 @@
 {
-   lib,
-   config,
-   pkgs,
-   osConfig ? null,
-   ...
+  lib,
+  config,
+  pkgs,
+  osConfig ? null,
+  ...
 }:
 
 {
   home.stateVersion = "25.11";
 
-  home.packages = with pkgs; [
-    wl-clipboard
-  ];
+  home.packages =
+    with pkgs;
+    [
+      nixfmt
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      wl-clipboard
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+    ];
 
   programs.zsh = {
     enable = true;
@@ -22,22 +29,27 @@
     history.size = 10000;
     history.ignoreAllDups = true;
     history.path = "$HOME/.zsh_history";
-    history.ignorePatterns = ["rm *" "cp *"];
+    history.ignorePatterns = [
+      "rm *"
+      "cp *"
+    ];
 
-    initContent = lib.mkOrder 1000 (lib.concatStrings [
-      ''
-        function emc {
-          emacs -nw "$@"
-        }
-      ''
+    initContent = lib.mkOrder 1000 (
+      lib.concatStrings [
+        ''
+          function emc {
+            emacs -nw "$@"
+          }
+        ''
 
-      (lib.optionalString pkgs.stdenv.isLinux  ''
-         function emg {
-           nohup emacs "$@" >/dev/null 2>&1 &
-           disown
-         }
-       '')
-    ]);
+        (lib.optionalString pkgs.stdenv.isLinux ''
+          function emg {
+            nohup emacs "$@" >/dev/null 2>&1 &
+            disown
+          }
+        '')
+      ]
+    );
     shellAliases = {
       em = if pkgs.stdenv.isDarwin then "open -a Emacs" else "emg";
     };
@@ -69,9 +81,9 @@
         style = "bold green";
       };
       character = {
-        success_symbol ="\\[[➜](bold green)\\]";
-	      error_symbol = "\\[[✗](bold red)\\]";
-	      vimcmd_symbol = "\\[[V](bold green)\\]";
+        success_symbol = "\\[[➜](bold green)\\]";
+        error_symbol = "\\[[✗](bold red)\\]";
+        vimcmd_symbol = "\\[[V](bold green)\\]";
       };
       directory = {
         format = "\\[[$path]($style)[$read_only]($read_only_style)\\] ";

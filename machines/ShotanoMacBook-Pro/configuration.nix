@@ -4,12 +4,11 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   system.primaryUser = "arakaki";
-  environment.systemPackages =
-    with pkgs; [
-      vim
-      texliveFull
-      vscode
-    ];
+  environment.systemPackages = with pkgs; [
+    vim
+    texliveFull
+    vscode
+  ];
   homebrew = {
     enable = true;
     onActivation = {
