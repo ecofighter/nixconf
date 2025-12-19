@@ -147,6 +147,7 @@
       theme = "TokyoNight";
       keybind = "shift+enter=text:\\n";
       background-opacity = 0.9;
+      window-decoration = "client";
     };
   };
   programs.emacs = {
