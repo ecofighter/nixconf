@@ -13,6 +13,7 @@
     with pkgs;
     [
       nixfmt
+      ripgrep
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
