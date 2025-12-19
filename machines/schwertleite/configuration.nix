@@ -151,6 +151,7 @@
     cmake
     ghostty
     ghostty.terminfo
+    texliveFull
   ];
   environment.variables = {
     SSH_ASKPASS_REQUIRE = "prefer";
