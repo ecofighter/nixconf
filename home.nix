@@ -14,6 +14,7 @@
     [
       nixfmt
       ripgrep
+      claude-code
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
