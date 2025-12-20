@@ -129,6 +129,15 @@
 
   services.fprintd.enable = true;
 
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
   programs.zsh.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.arakaki = {
@@ -136,6 +145,7 @@
     description = "Shota Arakaki";
     extraGroups = [
       "networkmanager"
+      "podman"
       "wheel"
     ];
     # packages = with pkgs; [
