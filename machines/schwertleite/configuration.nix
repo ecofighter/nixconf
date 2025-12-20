@@ -57,6 +57,7 @@
     fcitx5.addons = [
       pkgs.fcitx5-skk
       pkgs.fcitx5-gtk
+      pkgs.kdePackages.fcitx5-qt
     ];
     fcitx5.waylandFrontend = true;
   };
