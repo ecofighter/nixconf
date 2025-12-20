@@ -10,7 +10,7 @@
   };
 
   outputs =
-    inputs@{
+    {
       nixpkgs,
       nix-darwin,
       home-manager,

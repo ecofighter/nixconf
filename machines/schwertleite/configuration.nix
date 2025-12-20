@@ -138,10 +138,8 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
+    # packages = with pkgs; [
+    # ];
     shell = pkgs.zsh;
   };
 
