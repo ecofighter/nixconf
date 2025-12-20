@@ -148,8 +148,12 @@
       "podman"
       "wheel"
     ];
-    # packages = with pkgs; [
-    # ];
+    packages = with pkgs; [
+      podman
+      podman-compose
+      buildah
+      skopeo
+    ];
     shell = pkgs.zsh;
   };
 
