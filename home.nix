@@ -13,6 +13,7 @@
     with pkgs;
     [
       nixfmt
+      nixd
       ripgrep
       claude-code
     ]
