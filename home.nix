@@ -57,6 +57,14 @@
     shellAliases = {
       em = if pkgs.stdenv.isDarwin then "open -a Emacs" else "emg";
     };
+
+    plugins = [
+      {
+        name = "zsh-fzf-tab";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+    ];
   };
   programs.starship = {
     enable = true;
