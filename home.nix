@@ -26,7 +26,13 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+      strategy = [
+        "history"
+        "completion"
+      ];
+    };
 
     history.size = 10000;
     history.ignoreAllDups = true;
@@ -36,22 +42,17 @@
       "cp *"
     ];
 
-    initContent = lib.mkOrder 1000 (
-      lib.concatStrings [
-        ''
-          function emc {
-            emacs -nw "$@"
-          }
-        ''
-
-        (lib.optionalString pkgs.stdenv.isLinux ''
-          function emg {
-            nohup emacs "$@" >/dev/null 2>&1 &
-            disown
-          }
-        '')
-      ]
-    );
+    siteFunctions = {
+      emc = ''
+        emacs -nw "$@"
+      '';
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux {
+      emg = ''
+        nohup emacs "$@" >/dev/null 2>&1 &
+        disown
+      '';
+    };
     shellAliases = {
       em = if pkgs.stdenv.isDarwin then "open -a Emacs" else "emg";
     };
