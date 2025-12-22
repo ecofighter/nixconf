@@ -132,10 +132,20 @@
 
   virtualisation = {
     containers.enable = true;
+    oci-containers.backend = "podman";
     podman = {
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
+    };
+
+    containers.storage.settings = {
+      storage = {
+        driver = "btrfs";
+        runroot = "/run/containers/storage";
+        graphroot = "/var/lib/containers/storage";
+        options.overlay.mountopt = "nodev,metacopy=on";
+      };
     };
   };
 
