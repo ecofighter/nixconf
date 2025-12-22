@@ -11,6 +11,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       nix-darwin,
       home-manager,
@@ -19,6 +20,7 @@
     {
       nixosConfigurations = {
         "schwertleite" = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit self; };
           system = "x86_64-linux";
           modules = [
             ./machines/schwertleite/configuration.nix
@@ -39,6 +41,7 @@
 
       darwinConfigurations = {
         "ShotanoMacBook-Pro" = nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit self; };
           modules = [
             ./machines/ShotanoMacBook-Pro/configuration.nix
             home-manager.darwinModules.home-manager
