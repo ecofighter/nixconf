@@ -26,9 +26,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableVteIntegration = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
 
     history.size = 10000;
     history.ignoreAllDups = true;
@@ -60,7 +58,12 @@
 
     plugins = [
       {
-        name = "zsh-fzf-tab";
+        name = "fast-syntax-highlighting";
+        src = pkgs.zsh-fast-syntax-highlighting;
+        file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
+      }
+      {
+        name = "fzf-tab";
         src = pkgs.zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
