@@ -166,6 +166,7 @@
       skopeo
     ];
     shell = pkgs.zsh;
+    linger = true;
   };
 
   programs.git.enable = true;

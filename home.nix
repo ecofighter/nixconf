@@ -183,6 +183,9 @@
     enable = true;
     package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
   };
+  programs.onedrive = {
+    enable = pkgs.stdenv.isLinux;
+  };
 
   programs.home-manager.enable = true;
 }
