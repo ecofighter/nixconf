@@ -129,6 +129,7 @@
   # services.xserver.libinput.enable = true;
 
   services.fprintd.enable = true;
+  services.fwupd.enable = true;
 
   virtualisation = {
     containers.enable = true;
