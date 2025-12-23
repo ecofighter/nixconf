@@ -15,6 +15,7 @@
       nixfmt
       nixd
       ripgrep
+      slack
       claude-code
     ]
     ++ lib.optionals stdenv.isLinux [
