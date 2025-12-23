@@ -12,6 +12,8 @@
   home.packages =
     with pkgs;
     [
+      zsh
+      zsh-completions
       nixfmt
       nixd
       ripgrep
@@ -51,16 +53,24 @@
       em = if pkgs.stdenv.isDarwin then "open -a Emacs" else "emg";
     };
 
+    localVariables = {
+      ZSH_AUTOSUGGEST_STRATEGY = [
+        "completion"
+        "history"
+      ];
+    };
     plugins = [
       {
         name = "fzf-tab";
-        src = pkgs.zsh-fzf-tab;
-        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+      }
+      {
+        name = "zsh-autosuggestions";
+        src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
       }
       {
         name = "fast-syntax-highlighting";
-        src = pkgs.zsh-fast-syntax-highlighting;
-        file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
+        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
     ];
   };
