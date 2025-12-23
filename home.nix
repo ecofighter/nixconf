@@ -14,6 +14,7 @@
     [
       zsh
       zsh-completions
+      emacs-lsp-booster
       nixfmt
       nixd
       ripgrep
@@ -189,6 +190,17 @@
   programs.emacs = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
+    extraPackages = epkgs: with epkgs; [
+      pdf-tools
+      vterm
+      (treesit-grammars.with-grammars (g: with g; [
+        tree-sitter-c
+        tree-sitter-cpp
+        tree-sitter-rust
+        tree-sitter-markdown
+        tree-sitter-nix
+      ]))
+    ];
   };
   programs.onedrive = {
     enable = pkgs.stdenv.isLinux;
