@@ -27,13 +27,6 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion = {
-      enable = true;
-      strategy = [
-        "history"
-        "completion"
-      ];
-    };
 
     history.size = 10000;
     history.ignoreAllDups = true;
@@ -60,14 +53,14 @@
 
     plugins = [
       {
-        name = "fast-syntax-highlighting";
-        src = pkgs.zsh-fast-syntax-highlighting;
-        file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
-      }
-      {
         name = "fzf-tab";
         src = pkgs.zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+      {
+        name = "fast-syntax-highlighting";
+        src = pkgs.zsh-fast-syntax-highlighting;
+        file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
       }
     ];
   };
