@@ -202,6 +202,7 @@
         tree-sitter-cpp
         tree-sitter-rust
         tree-sitter-markdown
+        tree-sitter-markdown-inline
         tree-sitter-nix
       ]))
     ];
