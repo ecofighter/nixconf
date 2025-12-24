@@ -1,8 +1,6 @@
 {
   lib,
-  config,
   pkgs,
-  osConfig ? null,
   ...
 }:
 
@@ -12,7 +10,6 @@
   home.packages =
     with pkgs;
     [
-      zsh
       zsh-completions
       emacs-lsp-booster
       nixfmt
@@ -43,15 +40,20 @@
       emc = ''
         emacs -nw "$@"
       '';
-    }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
-      emg = ''
-        nohup emacs "$@" >/dev/null 2>&1 &
-        disown
-      '';
+      emg =
+        if pkgs.stdenv.isDarwin then
+          ''
+            open -a Emacs "$@"
+          ''
+        else
+          ''
+            nohup emacs "$@" >/dev/null 2>&1 &
+            disown
+          '';
     };
+
     shellAliases = {
-      em = if pkgs.stdenv.isDarwin then "open -a Emacs" else "emg";
+      em = "emg";
     };
 
     localVariables = {
@@ -179,7 +181,13 @@
   };
   programs.ghostty = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+    package =
+      if pkgs.stdenv.isLinux then
+        pkgs.ghostty
+      else if pkgs.stdenv.isDarwin then
+        pkgs.ghostty-bin
+      else
+        throw "unsupported system ${pkgs.stdenv.hostPlatform.system}";
     enableZshIntegration = true;
 
     settings = {
@@ -194,18 +202,21 @@
   programs.emacs = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
-    extraPackages = epkgs: with epkgs; [
-      pdf-tools
-      vterm
-      (treesit-grammars.with-grammars (g: with g; [
-        tree-sitter-c
-        tree-sitter-cpp
-        tree-sitter-rust
-        tree-sitter-markdown
-        tree-sitter-markdown-inline
-        tree-sitter-nix
-      ]))
-    ];
+    extraPackages =
+      epkgs: with epkgs; [
+        pdf-tools
+        vterm
+        (treesit-grammars.with-grammars (
+          g: with g; [
+            tree-sitter-c
+            tree-sitter-cpp
+            tree-sitter-rust
+            tree-sitter-markdown
+            tree-sitter-markdown-inline
+            tree-sitter-nix
+          ]
+        ))
+      ];
   };
   programs.onedrive = {
     enable = pkgs.stdenv.isLinux;
