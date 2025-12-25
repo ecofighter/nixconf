@@ -30,7 +30,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-
+    defaultKeymap = "emacs";
     history.size = 10000;
     history.ignoreAllDups = true;
     history.path = "$HOME/.zsh_history";
@@ -38,7 +38,6 @@
       "rm *"
       "cp *"
     ];
-
     siteFunctions = {
       emc = ''
         emacs -nw "$@"
@@ -54,11 +53,9 @@
             disown
           '';
     };
-
     shellAliases = {
       em = "emg";
     };
-
     localVariables = {
       ZSH_AUTOSUGGEST_STRATEGY = [
         "completion"
