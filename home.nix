@@ -20,6 +20,7 @@
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
+      gnomeExtensions.kimpanel
     ]
     ++ lib.optionals stdenv.isDarwin [
     ];
@@ -230,7 +231,7 @@
       };
       "org/gnome/shell" = {
         disable-user-extensions = false;
-        enabled-extenstions = with pkgs.gnomeExtensions; [
+        enabled-extensions = with pkgs.gnomeExtensions; [
           kimpanel.extensionUuid
         ];
       };
