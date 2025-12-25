@@ -222,5 +222,20 @@
     enable = pkgs.stdenv.isLinux;
   };
 
+  dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/input-sources" = {
+        xkb-options = [ "ctrl:nocaps" ];
+      };
+      "org/gnome/shell" = {
+        disable-user-extensions = false;
+        enabled-extenstions = with pkgs.gnomeExtensions; [
+          kimpanel.extensionUuid
+        ];
+      };
+    };
+  };
+
   programs.home-manager.enable = true;
 }

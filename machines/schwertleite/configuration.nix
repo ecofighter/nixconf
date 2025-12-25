@@ -96,9 +96,8 @@
   services.xserver.enable = false;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -171,10 +170,6 @@
   };
 
   programs.git.enable = true;
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-  };
   programs.firefox.enable = true;
 
   # Allow unfree packages
@@ -190,7 +185,6 @@
     gnumake
     cmake
     ghostty
-    ghostty.terminfo
     texliveFull
   ];
   environment.variables = {
