@@ -21,6 +21,7 @@
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
       gnomeExtensions.kimpanel
+      gnomeExtensions.dash2dock-lite
     ]
     ++ lib.optionals stdenv.isDarwin [
     ];
@@ -237,6 +238,7 @@
         disable-user-extensions = false;
         enabled-extensions = with pkgs.gnomeExtensions; [
           kimpanel.extensionUuid
+          dash2dock-lite.extensionUuid
         ];
       };
     };
