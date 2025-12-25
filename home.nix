@@ -200,6 +200,10 @@
       window-decoration = "client";
     };
   };
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
   programs.emacs = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
