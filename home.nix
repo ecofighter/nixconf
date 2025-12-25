@@ -22,6 +22,7 @@
       wl-clipboard
       gnomeExtensions.kimpanel
       gnomeExtensions.dash2dock-lite
+      gnomeExtensions.blur-my-shell
     ]
     ++ lib.optionals stdenv.isDarwin [
     ];
@@ -239,6 +240,7 @@
         enabled-extensions = with pkgs.gnomeExtensions; [
           kimpanel.extensionUuid
           dash2dock-lite.extensionUuid
+          blur-my-shell.extensionUuid
         ];
       };
     };
