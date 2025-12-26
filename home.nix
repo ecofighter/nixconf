@@ -226,11 +226,24 @@
     enable = pkgs.stdenv.isLinux;
   };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+    style.name = "adwaita-dark";
+  };
   programs.gnome-shell = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     extensions = with pkgs.gnomeExtensions; [
       { package = kimpanel; }
       { package = dash-to-dock; }
+      { package = blur-my-shell; }
     ];
   };
   dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -240,6 +253,7 @@
         xkb-options = [ "ctrl:nocaps" ];
       };
       "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
         font-name = "Roboto Flex  10";
         document-font-name = "Roboto Flex  10";
         monospace-font-name = "Roboto Mono  10";

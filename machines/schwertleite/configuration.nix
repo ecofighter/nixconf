@@ -173,7 +173,12 @@
   };
 
   programs.git.enable = true;
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    package = pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {
+      pipewireSupport = true;
+    }) { };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
