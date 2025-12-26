@@ -95,7 +95,10 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = false;
 
-  # Enable the KDE Plasma Desktop Environment.
+  services.kmscon = {
+    enable = true;
+    useXkbConfig = true;
+  };
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
