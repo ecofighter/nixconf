@@ -153,7 +153,6 @@
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
-
     nix-direnv.enable = true;
   };
   programs.fzf = {
@@ -243,7 +242,6 @@
     extensions = with pkgs.gnomeExtensions; [
       { package = kimpanel; }
       { package = dash-to-dock; }
-      { package = blur-my-shell; }
     ];
   };
   dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -254,9 +252,10 @@
       };
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        font-name = "Roboto Flex  10";
-        document-font-name = "Roboto Flex  10";
-        monospace-font-name = "Roboto Mono  10";
+        font-name = "Roboto Flex  12";
+        document-font-name = "Roboto Flex  12";
+        monospace-font-name = "Roboto Mono  12";
+        gtk-theme = "Adwaita-dark";
       };
     };
   };
