@@ -176,8 +176,10 @@
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {
+      ffmpegSupport = true;
       pipewireSupport = true;
     }) { };
+    languagePacks = [ "ja" ];
   };
 
   # Allow unfree packages
