@@ -10,9 +10,7 @@
   home.packages =
     with pkgs;
     [
-      roboto-flex
-      roboto-serif
-      roboto-mono
+      ibm-plex
       zsh-completions
       emacs-lsp-booster
       nixfmt
@@ -252,9 +250,9 @@
       };
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        font-name = "Roboto Flex  12";
-        document-font-name = "Roboto Flex  12";
-        monospace-font-name = "Roboto Mono  12";
+        font-name = "IBM Plex Sans JP  11";
+        document-font-name = "IBM Plex Sans JP  11";
+        monospace-font-name = "IBM Plex Mono  11";
         gtk-theme = "Adwaita-dark";
       };
     };
