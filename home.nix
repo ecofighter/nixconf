@@ -10,6 +10,9 @@
   home.packages =
     with pkgs;
     [
+      roboto-flex
+      roboto-serif
+      roboto-mono
       zsh-completions
       emacs-lsp-booster
       nixfmt
@@ -20,8 +23,6 @@
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
-      gnomeExtensions.kimpanel
-      gnomeExtensions.dash2dock-lite
     ]
     ++ lib.optionals stdenv.isDarwin [
     ];
@@ -225,18 +226,23 @@
     enable = pkgs.stdenv.isLinux;
   };
 
+  programs.gnome-shell = lib.optionalAttrs pkgs.stdenv.isLinux {
+    enable = true;
+    extensions = with pkgs.gnomeExtensions; [
+      { package = kimpanel; }
+      { package = dash-to-dock; }
+    ];
+  };
   dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     settings = {
       "org/gnome/desktop/input-sources" = {
         xkb-options = [ "ctrl:nocaps" ];
       };
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        enabled-extensions = with pkgs.gnomeExtensions; [
-          kimpanel.extensionUuid
-          dash2dock-lite.extensionUuid
-        ];
+      "org/gnome/desktop/interface" = {
+        font-name = "Roboto Flex  10";
+        document-font-name = "Roboto Flex  10";
+        monospace-font-name = "Roboto Mono  10";
       };
     };
   };
