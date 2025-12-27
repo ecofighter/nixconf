@@ -233,7 +233,7 @@
   qt = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     platformTheme.name = "adwaita";
-    style.name = "adwaita-dark";
+    style.name = "breeze";
   };
   programs.gnome-shell = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
