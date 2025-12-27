@@ -225,9 +225,12 @@
 
   gtk = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+    gtk3 = {
+      enable = true;
+      theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome-themes-extra;
+      };
     };
   };
   qt = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -255,6 +258,7 @@
         document-font-name = "IBM Plex Sans JP  11";
         monospace-font-name = "IBM Plex Mono  11";
         gtk-theme = "Adwaita-dark";
+        show-battery-percentage = true;
       };
     };
   };
