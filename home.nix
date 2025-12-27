@@ -228,8 +228,8 @@
     gtk3 = {
       enable = true;
       theme = {
-        name = "Adwaita-dark";
-        package = pkgs.gnome-themes-extra;
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
       };
     };
   };
@@ -244,6 +244,7 @@
       { package = kimpanel; }
       { package = dash-to-dock; }
       { package = removable-drive-menu; }
+      { package = adw-gtk3-colorizer; }
     ];
   };
   dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -257,7 +258,7 @@
         font-name = "IBM Plex Sans JP  11";
         document-font-name = "IBM Plex Sans JP  11";
         monospace-font-name = "IBM Plex Mono  11";
-        gtk-theme = "Adwaita-dark";
+        gtk-theme = "adw-gtk3-dark";
         show-battery-percentage = true;
       };
     };
