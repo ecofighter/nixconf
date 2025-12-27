@@ -223,14 +223,14 @@
     enable = pkgs.stdenv.isLinux;
   };
 
-  gtk = {
+  gtk = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
   };
-  qt = {
+  qt = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     platformTheme.name = "adwaita";
     style.name = "adwaita-dark";
@@ -240,6 +240,7 @@
     extensions = with pkgs.gnomeExtensions; [
       { package = kimpanel; }
       { package = dash-to-dock; }
+      { package = removable-drive-menu; }
     ];
   };
   dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
