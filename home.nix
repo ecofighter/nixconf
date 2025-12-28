@@ -225,6 +225,10 @@
 
   gtk = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
     gtk3 = {
       enable = true;
       theme = {
@@ -259,6 +263,7 @@
         document-font-name = "IBM Plex Sans JP  11";
         monospace-font-name = "IBM Plex Mono  11";
         gtk-theme = "adw-gtk3-dark";
+        icon-theme = "Papirus-Dark";
         show-battery-percentage = true;
       };
     };
