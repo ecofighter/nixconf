@@ -188,7 +188,10 @@
     enableZshIntegration = true;
 
     settings = {
-      font-family = "0xProto";
+      font-family = [
+        "IBM Plex Mono"
+        "IBM Plex Sans JP"
+      ];
       font-feature = "-dlig";
       theme = "Kanagawa Wave";
       keybind = "shift+enter=text:\\n";
