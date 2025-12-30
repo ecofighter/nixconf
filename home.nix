@@ -16,6 +16,7 @@
       nixfmt
       nixd
       ripgrep
+      gh
       slack
       claude-code
     ]
@@ -166,9 +167,12 @@
   };
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "Shota Arakaki";
-      email = "syotaa1@gmail.com";
+    settings = {
+      user = {
+        name = "Shota Arakaki";
+        email = "syotaa1@gmail.com";
+      };
+      credential."https://github.com".helper = "!gh auth git-credential";
     };
     ignores = [ ".DS_Store" ];
   };
