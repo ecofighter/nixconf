@@ -12,11 +12,12 @@
     [
       ibm-plex
       zsh-completions
-      emacs-lsp-booster
       nixfmt
       nixd
       ripgrep
       gh
+      hunspell
+      hunspellDicts.en_US-large
       slack
       claude-code
     ]
