@@ -220,6 +220,7 @@
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-rust
+            tree-sitter-python
             tree-sitter-markdown
             tree-sitter-markdown-inline
             tree-sitter-nix
