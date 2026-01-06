@@ -253,7 +253,7 @@
     enable = true;
     extensions = with pkgs.gnomeExtensions; [
       { package = kimpanel; }
-      { package = dash-to-dock; }
+      { package = dash2dock-lite; }
       { package = removable-drive-menu; }
       { package = adw-gtk3-colorizer; }
     ];
@@ -272,6 +272,11 @@
         gtk-theme = "adw-gtk3-dark";
         icon-theme = "Papirus-Dark";
         show-battery-percentage = true;
+      };
+      "org/gnome/shell/extensions/dash2dock-lite" = {
+        icon-size = 0.085;
+        separator-thickness = 1;
+        edge-distance = 0.45;
       };
     };
   };
