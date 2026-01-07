@@ -16,8 +16,7 @@
       nixd
       ripgrep
       gh
-      hunspell
-      hunspellDicts.en_US-large
+      (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
       claude-code
     ]
