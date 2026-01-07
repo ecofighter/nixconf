@@ -197,6 +197,7 @@
     cmake
     ghostty
     texliveFull
+    texlab
   ];
   environment.variables = {
     SSH_ASKPASS_REQUIRE = "prefer";
