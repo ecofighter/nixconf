@@ -56,9 +56,9 @@
     type = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-mellow-themes
-      fcitx5-skk
       fcitx5-gtk
-      kdePackages.fcitx5-qt
+      qt6Packages.fcitx5-qt
+      qt6Packages.fcitx5-skk-qt
     ];
     fcitx5.waylandFrontend = true;
   };

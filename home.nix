@@ -11,6 +11,7 @@
     with pkgs;
     [
       ibm-plex
+      nerd-fonts.symbols-only
       zsh-completions
       nixfmt
       nixd
