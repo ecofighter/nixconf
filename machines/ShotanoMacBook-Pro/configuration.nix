@@ -25,6 +25,7 @@
       "microsoft-excel"
       "microsoft-teams"
       "zoom"
+      "obs"
     ];
   };
   fonts = {
