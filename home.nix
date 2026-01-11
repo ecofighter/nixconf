@@ -280,6 +280,9 @@
         separator-thickness = 1;
         edge-distance = 0.45;
       };
+      "org/gnome/shell/extensions/kimpanel" = {
+        font = "IBM Plex Sans JP 12";
+      };
     };
   };
 
