@@ -233,59 +233,5 @@
     enable = pkgs.stdenv.isLinux;
   };
 
-  gtk = lib.optionalAttrs pkgs.stdenv.isLinux {
-    enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    gtk3 = {
-      enable = true;
-      theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
-      };
-    };
-  };
-  qt = lib.optionalAttrs pkgs.stdenv.isLinux {
-    enable = true;
-    platformTheme.name = "adwaita";
-    style.name = "breeze";
-  };
-  programs.gnome-shell = lib.optionalAttrs pkgs.stdenv.isLinux {
-    enable = true;
-    extensions = with pkgs.gnomeExtensions; [
-      { package = kimpanel; }
-      { package = dash2dock-lite; }
-      { package = removable-drive-menu; }
-      { package = adw-gtk3-colorizer; }
-    ];
-  };
-  dconf = lib.optionalAttrs pkgs.stdenv.isLinux {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/input-sources" = {
-        xkb-options = [ "ctrl:nocaps" ];
-      };
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-        font-name = "IBM Plex Sans JP  11";
-        document-font-name = "IBM Plex Sans JP  11";
-        monospace-font-name = "IBM Plex Mono  11";
-        gtk-theme = "adw-gtk3-dark";
-        icon-theme = "Papirus-Dark";
-        show-battery-percentage = true;
-      };
-      "org/gnome/shell/extensions/dash2dock-lite" = {
-        icon-size = 0.085;
-        separator-thickness = 1;
-        edge-distance = 0.45;
-      };
-      "org/gnome/shell/extensions/kimpanel" = {
-        font = "IBM Plex Sans JP 12";
-      };
-    };
-  };
-
   programs.home-manager.enable = true;
 }
