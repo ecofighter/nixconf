@@ -232,6 +232,18 @@
   programs.onedrive = {
     enable = pkgs.stdenv.isLinux;
   };
+  programs.mpv = {
+    enable = pkgs.stdenv.isLinux;
+    config = {
+      profile = "gpu-hq";
+      force-window = true;
+      autofit-larger = "1280x720";
+      autofit-smaller = "640x360";
+    };
+    scripts = with pkgs.mpvScripts; [
+      mpris
+    ];
+  };
 
   programs.plasma = {
     enable = true;
@@ -311,7 +323,7 @@
             };
           }
           {
-            appMenu = {};
+            appMenu = { };
           }
           {
             panelSpacer = {
