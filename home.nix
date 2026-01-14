@@ -17,6 +17,7 @@
       nixd
       ripgrep
       gh
+      cmark-gfm
       (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
       claude-code
