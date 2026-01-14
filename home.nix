@@ -233,5 +233,145 @@
     enable = pkgs.stdenv.isLinux;
   };
 
+  programs.plasma = {
+    enable = true;
+
+    workspace = {
+      theme = "breeze-dark";
+    };
+
+    fonts = {
+      general = {
+        family = "IBM Plex Sans JP";
+        pointSize = 12;
+      };
+    };
+
+    input = {
+      keyboard = {
+        layouts = [
+          {
+            layout = "jp";
+          }
+        ];
+        options = [
+          "ctrl:nocaps"
+        ];
+      };
+    };
+
+    kwin = {
+      virtualDesktops = {
+        number = 4;
+        rows = 1;
+      };
+    };
+    panels = [
+      {
+        location = "top";
+        height = 36;
+        widgets = [
+          {
+            pager = {
+              general = {
+                showWindowOutlines = true;
+                showApplicationIconsOnWindowOutlines = false;
+                showOnlyCurrentScreen = true;
+                navigationWrapsAround = true;
+              };
+            };
+          }
+          {
+            applicationTitleBar = {
+              behavior = {
+                activeTaskSource = "activeTask";
+              };
+              layout = {
+                elements = [ "windowTitle" ];
+                horizontalAlignment = "left";
+                showDisabledElements = "deactivated";
+                verticalAlignment = "center";
+              };
+              overrideForMaximized.enable = false;
+              windowTitle = {
+                font = {
+                  bold = false;
+                  fit = "fixedSize";
+                  size = 12;
+                };
+                hideEmptyTitle = true;
+                margins = {
+                  bottom = 0;
+                  left = 10;
+                  right = 5;
+                  top = 0;
+                };
+                source = "appName";
+              };
+            };
+          }
+          {
+            appMenu = {};
+          }
+          {
+            panelSpacer = {
+              expanding = true;
+            };
+          }
+          {
+            digitalClock = {
+              calendar.firstDayOfWeek = "sunday";
+              date.enable = false;
+              time.format = "24h";
+            };
+          }
+          {
+            panelSpacer = {
+              expanding = true;
+            };
+          }
+          {
+            systemTray.items = {
+              shown = [
+                "org.kde.plasma.battery"
+              ];
+            };
+          }
+        ];
+      }
+      {
+        location = "bottom";
+        lengthMode = "fit";
+        height = 36;
+        widgets = [
+          {
+            kickoff = {
+              sortAlphabetically = true;
+              icon = "nix-snowflake-white";
+            };
+          }
+          {
+            iconTasks = {
+              launchers = [
+                "applications:org.kde.dolphin.desktop"
+                "applications:firefox.desktop"
+                "applications:com.mitchellh.ghostty.desktop"
+              ];
+            };
+          }
+        ];
+      }
+    ];
+
+    configFile = {
+      kwinrc = {
+        Wayland."InputMethod" = {
+          value = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+          shellExpand = true;
+        };
+      };
+    };
+  };
+
   programs.home-manager.enable = true;
 }
