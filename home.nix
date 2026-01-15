@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  options,
   ...
 }:
 
@@ -245,7 +246,7 @@
     ];
   };
 
-  programs.plasma = {
+  programs.plasma = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
 
     workspace = {

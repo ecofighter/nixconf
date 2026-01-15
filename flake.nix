@@ -59,8 +59,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
               home-manager.backupFileExtension = "backup";
-
               users.users.arakaki.home = "/Users/arakaki";
               home-manager.users.arakaki = {
                 imports = [ ./home.nix ];
