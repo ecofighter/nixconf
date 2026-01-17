@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  options,
+  isNixOS,
   ...
 }:
 
@@ -377,7 +377,7 @@
     ];
 
     configFile = {
-      kwinrc = {
+      kwinrc = lib.optionalAttrs isNixOS {
         Wayland."InputMethod" = {
           value = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
           shellExpand = true;

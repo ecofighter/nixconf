@@ -36,6 +36,7 @@
             ./machines/schwertleite/configuration.nix
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs = { isNixOS = true; };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
@@ -57,6 +58,7 @@
             ./machines/ShotanoMacBook-Pro/configuration.nix
             home-manager.darwinModules.home-manager
             {
+              home-manager.extraSpecialArgs = { isNixOS = false; };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
@@ -70,6 +72,25 @@
             }
           ];
         };
+      };
+
+      homeConfigurations."haneta" = home-manager.lib.homeManagerConfiguration {
+        extraSpecialArgs = { isNixOS = false; };
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
+        modules = [
+          plasma-manager.homeModules.plasma-manager
+          {
+            targets.genericLinux.enable = true;
+            nixpkgs = {
+              config.allowUnfree = true;
+            };
+            home.username = "haneta";
+            home.homeDirectory = "/home/haneta";
+          }
+          ./home.nix
+        ];
       };
     };
 }
