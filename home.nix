@@ -276,7 +276,7 @@
     kwin = {
       virtualDesktops = {
         number = 4;
-        rows = 1;
+        rows = 2;
       };
     };
     panels = [
@@ -284,16 +284,6 @@
         location = "top";
         height = 36;
         widgets = [
-          {
-            pager = {
-              general = {
-                showWindowOutlines = true;
-                showApplicationIconsOnWindowOutlines = false;
-                showOnlyCurrentScreen = true;
-                navigationWrapsAround = true;
-              };
-            };
-          }
           {
             applicationTitleBar = {
               behavior = {
@@ -363,6 +353,17 @@
               icon = "nix-snowflake-white";
             };
           }
+          {
+            pager = {
+              general = {
+                showWindowOutlines = true;
+                showApplicationIconsOnWindowOutlines = false;
+                showOnlyCurrentScreen = true;
+                navigationWrapsAround = true;
+              };
+            };
+          }
+          "org.kde.plasma.marginsseparator"
           {
             iconTasks = {
               launchers = [
