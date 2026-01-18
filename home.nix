@@ -203,7 +203,7 @@
       theme = "Kanagawa Wave";
       keybind = "shift+enter=text:\\n";
       background-opacity = 0.9;
-      window-decoration = "client";
+      window-decoration = "auto";
     };
   };
   programs.vim = {
