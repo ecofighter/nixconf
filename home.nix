@@ -21,7 +21,6 @@
       pandoc
       (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
-      claude-code
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
