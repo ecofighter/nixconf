@@ -258,7 +258,6 @@
   };
   programs.rclone = {
     enable = pkgs.stdenv.isLinux;
-    requiresUnit = "sops-nix.service";
     remotes = {
       onedrive = {
         config = {
