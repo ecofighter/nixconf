@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   isNixOS,
   ...
 }:
@@ -8,6 +9,24 @@
 {
   home.stateVersion = "25.11";
 
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+
+    secrets = {
+      rclone_onedrive_token = {
+        sopsFile = ./secrets/rclone_onedrive_token.bin;
+        format = "binary";
+      };
+      rclone_onedrive_drive_id = {
+        sopsFile = ./secrets/rclone_onedrive_drive_id.bin;
+        format = "binary";
+      };
+    };
+  };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
   home.packages =
     with pkgs;
     [
@@ -236,8 +255,30 @@
       virtualenvs.in-project = true;
     };
   };
-  programs.onedrive = {
+  programs.rclone = {
     enable = pkgs.stdenv.isLinux;
+    requiresUnit = "sops-nix.service";
+    remotes = {
+      onedrive = {
+        config = {
+          type = "onedrive";
+          drive_type = "personal";
+        };
+        secrets = {
+          token = config.sops.secrets.rclone_onedrive_token.path;
+          drive_id = config.sops.secrets.rclone_onedrive_drive_id.path;
+        };
+        mounts = {
+          "" = {
+            enable = true;
+            mountPoint = "${config.home.homeDirectory}/OneDrive";
+            options = {
+              vfs-cache-mode = "full";
+            };
+          };
+        };
+      };
+    };
   };
   programs.mpv = {
     enable = pkgs.stdenv.isLinux;
@@ -251,21 +292,17 @@
       mpris
     ];
   };
-
   programs.plasma = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
-
     workspace = {
       theme = "breeze-dark";
     };
-
     fonts = {
       general = {
         family = "IBM Plex Sans JP";
         pointSize = 12;
       };
     };
-
     input = {
       keyboard = {
         layouts = [
@@ -278,7 +315,6 @@
         ];
       };
     };
-
     kwin = {
       virtualDesktops = {
         number = 4;
@@ -382,7 +418,6 @@
         ];
       }
     ];
-
     configFile = {
       kwinrc = lib.optionalAttrs isNixOS {
         Wayland."InputMethod" = {

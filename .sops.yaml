@@ -1,0 +1,7 @@
+keys:
+  - &schwertleite_arakaki age16hts0rvumwfj72saejc6x6mu3ze7r3u23wgq9nrnkresqvaj5etsyza45k
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|bin)$
+    key_groups:
+    - age:
+        - *schwertleite_arakaki
