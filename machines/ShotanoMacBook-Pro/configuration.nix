@@ -26,6 +26,7 @@
       "microsoft-teams"
       "zoom"
       "obs"
+      "jabref"
     ];
   };
   fonts = {

@@ -43,6 +43,7 @@
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
+      jabref
     ]
     ++ lib.optionals stdenv.isDarwin [
     ];
