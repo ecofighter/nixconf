@@ -1,247 +1,112 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+  nix.settings.experimental-features = [
+    "flakes"
+    "nix-command"
   ];
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 7d";
+  };
+  nix.optimise.automatic = true;
 
-  # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
 
-  # Bootloader.
+  fileSystems = {
+    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/swap".options = [ "noatime" ];
+   };
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 16*1024;
+    }
+  ];
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "schwertleite"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Use zen kernel.
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "schwertleite";
 
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  zramSwap = {
-    enable = true;
-    priority = 100;
-    algorithm = "lz4";
-    memoryPercent = 25;
-  };
-
-  # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
-  i18n.extraLocales = [
-    "en_US.UTF-8/UTF-8"
-  ];
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ja_JP.UTF-8";
-    LC_IDENTIFICATION = "ja_JP.UTF-8";
-    LC_MEASUREMENT = "ja_JP.UTF-8";
-    LC_MONETARY = "ja_JP.UTF-8";
-    LC_NAME = "ja_JP.UTF-8";
-    LC_NUMERIC = "ja_JP.UTF-8";
-    LC_PAPER = "ja_JP.UTF-8";
-    LC_TELEPHONE = "ja_JP.UTF-8";
-    LC_TIME = "ja_JP.UTF-8";
-  };
+  i18n.extraLocales = [ "en_US.UTF-8/UTF-8" ];
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
     fcitx5.addons = with pkgs; [
-      fcitx5-gtk
-      kdePackages.fcitx5-qt
       kdePackages.fcitx5-skk-qt
     ];
-    fcitx5.waylandFrontend = true;
   };
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk-serif
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      _0xproto
-      fira-code
-      fira-code-symbols
       ibm-plex
+      twemoji-color-font
     ];
     fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
-        serif = [
-          "Noto Serif CJK JP"
-          "Noto Color Emoji"
-        ];
-        sansSerif = [
-          "Noto Sans CJK JP"
-          "Noto Color Emoji"
-        ];
-        monospace = [
-          "IBM Plex Mono"
-          "Noto Color Emoji"
-        ];
-        emoji = [ "Noto Color Emoji" ];
+        serif = [ "IBM Plex Serif JP" ];
+        sansSerif = [ "IBM Plex Sans JP" ];
+        monospace = [ "IBM Plex Mono" ];
+        emoji = [ "Twitter Color Emoji" ];
       };
     };
   };
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = false;
-
   services.kmscon = {
     enable = true;
     useXkbConfig = true;
   };
+
+  services.xserver.enable = false;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-    config.common = {
-      default = [ "kde" ];
-    };
-  };
+  services.xserver.xkb.layout = "jp";
+  services.xserver.xkb.options = "ctrl:nocaps";
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "jp";
-    variant = "";
-  };
-
-  # Enable CUPS to print documents.
+  services.fprintd.enable = true;
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  services.fprintd.enable = true;
-  services.fwupd.enable = true;
-
-  virtualisation = {
-    containers.enable = true;
-    oci-containers.backend = "podman";
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-
-    containers.storage.settings = {
-      storage = {
-        driver = "btrfs";
-        runroot = "/run/containers/storage";
-        graphroot = "/var/lib/containers/storage";
-        options.overlay.mountopt = "nodev,metacopy=on";
-      };
-    };
-  };
-
-  programs.zsh.enable = true;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.arakaki = {
     isNormalUser = true;
-    description = "Shota Arakaki";
-    extraGroups = [
-      "networkmanager"
-      "podman"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      podman
-      podman-compose
-      buildah
-      skopeo
-    ];
+    extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
-    linger = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
+  programs.zsh.enable = true;
+  programs.nix-ld.enable = true;
   programs.git.enable = true;
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox (pkgs.firefox-unwrapped.override {
       ffmpegSupport = true;
       pipewireSupport = true;
-    }) { };
+    }) {};
     languagePacks = [ "ja" ];
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
     wget
-    gcc
-    libtool
-    gnumake
-    cmake
-    ghostty
-    texliveFull
-    texlab
   ];
-  environment.variables = {
-    SSH_ASKPASS_REQUIRE = "prefer";
-  };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  system.stateVersion = "25.11";
 }
