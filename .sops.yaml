@@ -1,7 +1,9 @@
 keys:
   - &schwertleite_arakaki age1uqyfmgngdd7k6r52a653xkrkz4l90wscx3qxy2j9na8za5evgpasgx83uy
+  - &dynabook_haneta age1w7pmc6w64hx0eezrn8p20qlatctwvnpk8wstesjy8zlwemers3cs69f3qr
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|bin)$
     key_groups:
     - age:
         - *schwertleite_arakaki
+        - *dynabook_haneta
