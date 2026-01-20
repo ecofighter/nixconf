@@ -44,6 +44,17 @@
             system = "x86_64-linux";
             modules = [
               ./machines/schwertleite/configuration.nix
+              {
+                nix.channel.enable = false;
+                nix.gc = {
+                  automatic = true;
+                  dates = "weekly";
+                };
+                nix.optimise = {
+                  automatic = true;
+                  dates = "weekly";
+                };
+              }
               home-manager.nixosModules.home-manager
               {
                 home-manager.extraSpecialArgs = {
@@ -76,6 +87,21 @@
             specialArgs = { inherit self; };
             modules = [
               ./machines/ShotanoMacBook-Pro/configuration.nix
+              {
+                nix.channel.enable = false;
+                nix.gc = {
+                  automatic = true;
+                  interval = {
+                    Weekday = 7;
+                  };
+                };
+                nix.optimise = {
+                  automatic = true;
+                  interval = {
+                    Weekday = 7;
+                  };
+                };
+              }
               home-manager.darwinModules.home-manager
               {
                 home-manager.extraSpecialArgs = {
