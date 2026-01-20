@@ -66,7 +66,6 @@
                   sops-nix.homeManagerModules.sops
                   plasma-manager.homeModules.plasma-manager
                 ];
-                home-manager.backupFileExtension = "backup";
                 home-manager.users.arakaki = {
                   imports = [ ./home.nix ];
                   home.username = username;
@@ -113,7 +112,6 @@
                   sops-nix.homeManagerModules.sops
                   plasma-manager.homeModules.plasma-manager
                 ];
-                home-manager.backupFileExtension = "backup";
                 users.users.arakaki.home = "/Users/arakaki";
                 home-manager.users.arakaki = {
                   imports = [ ./home.nix ];

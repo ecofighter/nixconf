@@ -30,6 +30,7 @@
 
   networking.hostName = "schwertleite";
 
+  services.resolved.enable = true;
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Tokyo";
@@ -71,6 +72,10 @@
   services.xserver.xkb.options = "ctrl:nocaps";
 
   services.fprintd.enable = true;
+  security.pam.services = {
+    login.fprintAuth = false;
+    sudo.fprintAuth = true;
+  };
   services.printing.enable = true;
 
   security.rtkit.enable = true;
