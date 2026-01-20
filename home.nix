@@ -35,6 +35,8 @@
       zsh-completions
       nixfmt
       nixd
+      age
+      sops
       ripgrep
       gh
       pandoc
