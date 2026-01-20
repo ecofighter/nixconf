@@ -296,6 +296,11 @@
     enable = true;
     workspace = {
       theme = "breeze-dark";
+      colorScheme = "BreezeDark";
+      splashScreen = {
+        engine = "none";
+        theme = "None";
+      };
     };
     fonts = {
       general = {
