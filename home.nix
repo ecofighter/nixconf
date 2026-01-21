@@ -279,7 +279,7 @@
       After = [ "rclone-config.service" "network-online.target" ];
     };
     Service = {
-      Type = "simple";
+      Type = "notify";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/OneDrive";
       ExecStart = "${pkgs.rclone}/bin/rclone mount --cache-dir %C --vfs-cache-mode full onedrive: %h/OneDrive";
       Restart = "on-failure";
