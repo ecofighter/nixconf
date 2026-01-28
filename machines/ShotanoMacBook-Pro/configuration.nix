@@ -18,10 +18,7 @@
       cleanup = "uninstall";
     };
     brews = [
-      {
-        name = "container";
-        restart_service = "changed";
-      }
+      "container"
     ];
     casks = [
       "macskk"
