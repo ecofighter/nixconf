@@ -17,6 +17,13 @@
       upgrade = true;
       cleanup = "uninstall";
     };
+    brews = [
+      {
+        name = "container";
+        start_service = true;
+        restart_service = "changed";
+      }
+    ];
     casks = [
       "macskk"
       "karabiner-elements"
@@ -26,7 +33,6 @@
       "microsoft-teams"
       "zoom"
       "obs"
-      "jabref"
     ];
   };
   fonts = {
