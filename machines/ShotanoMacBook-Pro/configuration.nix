@@ -20,7 +20,6 @@
     brews = [
       {
         name = "container";
-        start_service = true;
         restart_service = "changed";
       }
     ];
