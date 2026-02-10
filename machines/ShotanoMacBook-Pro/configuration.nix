@@ -8,7 +8,6 @@
     vim
     texliveFull
     texlab
-    vscode
   ];
   homebrew = {
     enable = true;
@@ -29,6 +28,7 @@
       "microsoft-teams"
       "zoom"
       "obs"
+      "visual-studio-code"
     ];
   };
   fonts = {
