@@ -26,6 +26,7 @@
       "microsoft-outlook"
       "microsoft-excel"
       "microsoft-teams"
+      "microsoft-word"
       "zoom"
       "obs"
       "visual-studio-code"
