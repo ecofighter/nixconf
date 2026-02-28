@@ -42,6 +42,8 @@
       pandoc
       (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
+      cmake
+      poppler-utils
     ]
     ++ lib.optionals stdenv.isLinux [
       wl-clipboard
@@ -240,8 +242,6 @@
     package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
     extraPackages =
       epkgs: with epkgs; [
-        pdf-tools
-        vterm
         (treesit-grammars.with-grammars (
           g: with g; [
             tree-sitter-c
