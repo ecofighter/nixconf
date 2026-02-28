@@ -42,6 +42,7 @@
       pandoc
       (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
+      glibtool
       cmake
       poppler-utils
     ]
