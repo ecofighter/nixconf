@@ -30,6 +30,8 @@
       "zoom"
       "obs"
       "visual-studio-code"
+      "discord"
+      "jabref"
     ];
   };
   fonts = {
