@@ -40,6 +40,7 @@
       ripgrep
       gh
       podman
+      podman-compose
       devcontainer
       pandoc
       (hunspell.withDicts (d: with d; [ en_US-large ]))
