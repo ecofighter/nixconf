@@ -39,6 +39,8 @@
       sops
       ripgrep
       gh
+      podman
+      devcontainer
       pandoc
       (hunspell.withDicts (d: with d; [ en_US-large ]))
       slack
