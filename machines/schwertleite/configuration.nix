@@ -106,6 +106,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    veracrypt
   ];
 
   system.stateVersion = "25.11";
