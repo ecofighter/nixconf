@@ -261,6 +261,9 @@
         ))
       ];
   };
+  programs.vscode = {
+    enable = true;
+  };
   programs.poetry = {
     enable = true;
     settings = {
