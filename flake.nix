@@ -77,6 +77,50 @@
       };
 
       darwinConfigurations = {
+        "alice" =
+          let
+            username = "arakaki";
+            homeDir = "/Users/${username}";
+          in
+          nix-darwin.lib.darwinSystem {
+            specialArgs = { inherit self; };
+            modules = [
+              ./machines/alice/configuration.nix
+              {
+                nix.channel.enable = false;
+                nix.gc = {
+                  automatic = true;
+                  interval = {
+                    Weekday = 7;
+                  };
+                };
+                nix.optimise = {
+                  automatic = true;
+                  interval = {
+                    Weekday = 7;
+                  };
+                };
+              }
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.extraSpecialArgs = {
+                  isNixOS = false;
+                };
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.sharedModules = [
+                  sops-nix.homeManagerModules.sops
+                  plasma-manager.homeModules.plasma-manager
+                ];
+                users.users.arakaki.home = "/Users/arakaki";
+                home-manager.users.arakaki = {
+                  imports = [ ./home.nix ];
+                  home.username = username;
+                  home.homeDirectory = homeDir;
+                };
+              }
+            ];
+          };
         "ShotanoMacBook-Pro" =
           let
             username = "arakaki";
