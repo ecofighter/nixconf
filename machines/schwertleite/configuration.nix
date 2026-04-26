@@ -66,7 +66,7 @@
   };
 
   services.xserver.enable = false;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.plasma-login-manager.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.xserver.xkb.layout = "jp";
   services.xserver.xkb.options = "ctrl:nocaps";
@@ -109,5 +109,5 @@
     veracrypt
   ];
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
