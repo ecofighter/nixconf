@@ -61,7 +61,7 @@
     };
   };
   services.kmscon = {
-    enable = true;
+    enable = false;
     useXkbConfig = true;
   };
 
