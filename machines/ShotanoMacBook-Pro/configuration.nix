@@ -6,6 +6,7 @@
   system.primaryUser = "arakaki";
   environment.systemPackages = with pkgs; [
     vim
+    go
     texliveFull
     texlab
   ];
