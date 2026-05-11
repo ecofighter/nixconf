@@ -32,6 +32,7 @@
       "visual-studio-code"
       "discord"
       "jabref"
+      "codex-app"
     ];
   };
   fonts = {
