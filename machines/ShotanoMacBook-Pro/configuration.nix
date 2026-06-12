@@ -32,6 +32,7 @@
       "obs"
       "visual-studio-code"
       "discord"
+      "docker"
       "jabref"
       "codex-app"
     ];
