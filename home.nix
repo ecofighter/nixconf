@@ -241,7 +241,7 @@
   };
   programs.emacs = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
+    # package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
     extraPackages =
       epkgs: with epkgs; [
         pdf-tools
