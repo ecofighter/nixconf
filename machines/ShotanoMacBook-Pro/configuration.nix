@@ -21,6 +21,8 @@
       "container"
     ];
     casks = [
+      "1password"
+      "1password-cli"
       "macskk"
       "karabiner-elements"
       "onedrive"
