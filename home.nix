@@ -30,26 +30,6 @@ let
     defaultInitFile = false;
     alwaysEnsure = false;
     package = emacsBase;
-    extraEmacsPackages =
-      epkgs: with epkgs; [
-        pdf-tools
-        vterm
-        (lean4ModeFor epkgs)
-        (treesit-grammars.with-grammars (
-          g: with g; [
-            tree-sitter-c
-            tree-sitter-cpp
-            tree-sitter-rust
-            tree-sitter-go
-            tree-sitter-gomod
-            tree-sitter-python
-            tree-sitter-markdown
-            tree-sitter-markdown-inline
-            tree-sitter-typst
-            tree-sitter-nix
-          ]
-        ))
-      ];
   };
 in
 {
@@ -119,8 +99,15 @@ in
       '';
       emg =
         if pkgs.stdenv.hostPlatform.isDarwin then
+          # `open -a Emacs' は解決を LaunchServices の登録に任せてしまう。
+          # 古い世代の *ラップされていない* Emacs.app が登録に残っていると
+          # そちらが起動し、emacsWithPackages が設定する EMACSLOADPATH を
+          # 通らないので Nix 由来のパッケージが load-path に入らない。すると
+          # init.el の `:ensure' が全部未インストール扱いになり、起動のたびに
+          # ELPA から `package-user-dir' へダウンロードが走る。
+          # バンドルをパスで直接指定して、必ずラッパー入りのものを起動する。
           ''
-            open -a Emacs "$@"
+            open -a "${config.programs.emacs.finalPackage}/Applications/Emacs.app" "$@"
           ''
         else
           ''
@@ -295,7 +282,30 @@ in
   programs.emacs = {
     enable = true;
     package = emacsBase;
-    extraPackages = _epkgs: lib.filter (p: p != null) emacsFromUsePackage.explicitRequires;
+    # パッケージ集合の情報源は init.el の `:ensure' 一本にする。
+    # ここで足すのは use-package では宣言しようがないものだけ:
+    #   - lean4-mode: nixpkgs に無いので個別にビルドする (init.el からは :ensure nil で参照)
+    #   - tree-sitter grammar: elisp パッケージではなく、.so を treesit-extra-load-path に載せるもの
+    extraPackages =
+      epkgs:
+      lib.filter (p: p != null) emacsFromUsePackage.explicitRequires
+      ++ [
+        (lean4ModeFor epkgs)
+        (epkgs.treesit-grammars.with-grammars (
+          g: with g; [
+            tree-sitter-c
+            tree-sitter-cpp
+            tree-sitter-rust
+            tree-sitter-go
+            tree-sitter-gomod
+            tree-sitter-python
+            tree-sitter-markdown
+            tree-sitter-markdown-inline
+            tree-sitter-typst
+            tree-sitter-nix
+          ]
+        ))
+      ];
   };
   programs.vscode = {
     enable = true;
@@ -308,7 +318,7 @@ in
     };
   };
   programs.rclone = {
-    enable = pkgs.stdenv.isLinux;
+    enable = pkgs.stdenv.hostPlatform.isLinux;
     remotes = {
       onedrive = {
         config = {
