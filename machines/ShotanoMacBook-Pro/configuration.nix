@@ -9,6 +9,8 @@
     go
     texliveFull
     texlab
+    typst
+    typstfmt
   ];
   homebrew = {
     enable = true;
