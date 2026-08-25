@@ -3,11 +3,11 @@
     "emacs-conf": {
       "flake": false,
       "locked": {
-        "lastModified": 1779613217,
-        "narHash": "sha256-mSN+F+LVPyKWs1PlBKfRUBdtUKsEETuw8hGdOyZsMes=",
+        "lastModified": 1787662747,
+        "narHash": "sha256-RsURDdN4prv84cZNjTqajhIHvNNwO5JA/GIL/uVOoKc=",
         "owner": "ecofighter",
         "repo": ".emacs.d",
-        "rev": "10bac4263d23edfee5ad0b084326b113ef524f28",
+        "rev": "f2ee6ce045e1f43241df87ad6582f4f53537ed01",
         "type": "github"
       },
       "original": {
@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787540599,
-        "narHash": "sha256-MHwk52ty3NsLhq9a1IbIfBJZlCUJIdiUYFo52JLK9hY=",
+        "lastModified": 1787661347,
+        "narHash": "sha256-THmnBAdAIV+jT348f3r/vyoeb6ilhcVLwVXkBU7Pai8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "03f4cd46bc1dd4f3a96da778d2ce9f7ce39dd450",
+        "rev": "52c3a5881c821ad7367bbde075e52b76cdb378ab",
         "type": "github"
       },
       "original": {
