@@ -9,9 +9,6 @@
     go
     texliveFull
     texlab
-    tinymist
-    typst
-    typstyle
   ];
   homebrew = {
     enable = true;

@@ -3,9 +3,55 @@
   pkgs,
   config,
   isNixOS,
+  emacs-conf,
+  lean4-mode,
   ...
 }:
 
+let
+  emacsBase = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
+  lean4ModeFor =
+    epkgs:
+    epkgs.melpaBuild {
+      pname = "lean4-mode";
+      version = "${builtins.substring 0 8 lean4-mode.lastModifiedDate}.0";
+      src = lean4-mode;
+      files = ''(:defaults "data")'';
+      packageRequires = with epkgs; [
+        compat
+        dash
+        magit-section
+        lsp-mode
+      ];
+      meta.description = "Emacs major mode for Lean 4";
+    };
+  emacsFromUsePackage = pkgs.emacsWithPackagesFromUsePackage {
+    config = "${emacs-conf}/init.el";
+    defaultInitFile = false;
+    alwaysEnsure = false;
+    package = emacsBase;
+    extraEmacsPackages =
+      epkgs: with epkgs; [
+        pdf-tools
+        vterm
+        (lean4ModeFor epkgs)
+        (treesit-grammars.with-grammars (
+          g: with g; [
+            tree-sitter-c
+            tree-sitter-cpp
+            tree-sitter-rust
+            tree-sitter-go
+            tree-sitter-gomod
+            tree-sitter-python
+            tree-sitter-markdown
+            tree-sitter-markdown-inline
+            tree-sitter-typst
+            tree-sitter-nix
+          ]
+        ))
+      ];
+  };
+in
 {
   home.stateVersion = "26.05";
 
@@ -46,11 +92,14 @@
       glibtool
       cmake
       poppler-utils
+      typst
+      tinymist
+      typstyle
     ]
-    ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
     ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
     ];
 
   programs.zsh = {
@@ -69,7 +118,7 @@
         emacs -nw "$@"
       '';
       emg =
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           ''
             open -a Emacs "$@"
           ''
@@ -102,7 +151,7 @@
         src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
     ];
-    envExtra = lib.optionalString pkgs.stdenv.isDarwin ''
+    envExtra = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       if [[ -x "/opt/homebrew/bin/brew" ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
       fi
@@ -215,9 +264,9 @@
   programs.ghostty = {
     enable = true;
     package =
-      if pkgs.stdenv.isLinux then
+      if pkgs.stdenv.hostPlatform.isLinux then
         pkgs.ghostty
-      else if pkgs.stdenv.isDarwin then
+      else if pkgs.stdenv.hostPlatform.isDarwin then
         pkgs.ghostty-bin
       else
         throw "unsupported system ${pkgs.stdenv.hostPlatform.system}";
@@ -239,28 +288,14 @@
     enable = true;
     defaultEditor = true;
   };
+  xdg.configFile."emacs" = {
+    source = emacs-conf;
+    recursive = true;
+  };
   programs.emacs = {
     enable = true;
-    # package = if pkgs.stdenv.isDarwin then pkgs.emacs-macport else pkgs.emacs-pgtk;
-    extraPackages =
-      epkgs: with epkgs; [
-        pdf-tools
-        vterm
-        (treesit-grammars.with-grammars (
-          g: with g; [
-            tree-sitter-c
-            tree-sitter-cpp
-            tree-sitter-rust
-            tree-sitter-go
-            tree-sitter-gomod
-            tree-sitter-python
-            tree-sitter-markdown
-            tree-sitter-markdown-inline
-            tree-sitter-typst
-            tree-sitter-nix
-          ]
-        ))
-      ];
+    package = emacsBase;
+    extraPackages = _epkgs: lib.filter (p: p != null) emacsFromUsePackage.explicitRequires;
   };
   programs.vscode = {
     enable = true;
@@ -290,7 +325,10 @@
   systemd.user.services."rclone-mount@onedrive" = {
     Unit = {
       Description = "Rclone FUSE daemon for onedrive:";
-      After = [ "rclone-config.service" "network-online.target" ];
+      After = [
+        "rclone-config.service"
+        "network-online.target"
+      ];
     };
     Service = {
       Type = "notify";
@@ -305,7 +343,7 @@
     };
   };
   programs.mpv = {
-    enable = pkgs.stdenv.isLinux;
+    enable = pkgs.stdenv.hostPlatform.isLinux;
     config = {
       profile = "gpu-hq";
       force-window = true;
@@ -316,7 +354,7 @@
       mpris
     ];
   };
-  programs.plasma = lib.mkIf pkgs.stdenv.isLinux {
+  programs.plasma = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     workspace = {
       theme = "breeze-dark";

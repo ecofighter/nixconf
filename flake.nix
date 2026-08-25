@@ -20,6 +20,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    emacs-conf = {
+      url = "github:ecofighter/.emacs.d";
+      flake = false;
+    };
+    # nixpkgs に無いため個別に供給する (init.el からは :ensure nil で参照)
+    lean4-mode = {
+      url = "github:leanprover-community/lean4-mode";
+      flake = false;
+    };
   };
 
   outputs =
@@ -30,8 +43,14 @@
       home-manager,
       sops-nix,
       plasma-manager,
+      emacs-overlay,
+      emacs-conf,
+      lean4-mode,
       ...
     }:
+    let
+      overlays = [ emacs-overlay.overlays.default ];
+    in
     {
       nixosConfigurations = {
         "schwertleite" =
@@ -45,6 +64,7 @@
             modules = [
               ./machines/schwertleite/configuration.nix
               {
+                nixpkgs.overlays = overlays;
                 nix.channel.enable = false;
                 nix.gc = {
                   automatic = true;
@@ -59,6 +79,7 @@
               {
                 home-manager.extraSpecialArgs = {
                   isNixOS = true;
+                  inherit emacs-conf lean4-mode;
                 };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
@@ -87,6 +108,7 @@
             modules = [
               ./machines/alice/configuration.nix
               {
+                nixpkgs.overlays = overlays;
                 nix.channel.enable = false;
                 nix.gc = {
                   automatic = true;
@@ -105,6 +127,7 @@
               {
                 home-manager.extraSpecialArgs = {
                   isNixOS = false;
+                  inherit emacs-conf lean4-mode;
                 };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
@@ -131,6 +154,7 @@
             modules = [
               ./machines/ShotanoMacBook-Pro/configuration.nix
               {
+                nixpkgs.overlays = overlays;
                 nix.channel.enable = false;
                 nix.gc = {
                   automatic = true;
@@ -149,6 +173,7 @@
               {
                 home-manager.extraSpecialArgs = {
                   isNixOS = false;
+                  inherit emacs-conf lean4-mode;
                 };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
@@ -175,9 +200,11 @@
         home-manager.lib.homeManagerConfiguration {
           extraSpecialArgs = {
             isNixOS = false;
+            inherit emacs-conf lean4-mode;
           };
           pkgs = import nixpkgs {
             system = "x86_64-linux";
+            inherit overlays;
           };
           modules = [
             sops-nix.homeManagerModules.sops

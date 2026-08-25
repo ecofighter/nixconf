@@ -1,5 +1,42 @@
 {
   "nodes": {
+    "emacs-conf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779613217,
+        "narHash": "sha256-mSN+F+LVPyKWs1PlBKfRUBdtUKsEETuw8hGdOyZsMes=",
+        "owner": "ecofighter",
+        "repo": ".emacs.d",
+        "rev": "10bac4263d23edfee5ad0b084326b113ef524f28",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ecofighter",
+        "repo": ".emacs.d",
+        "type": "github"
+      }
+    },
+    "emacs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1787650344,
+        "narHash": "sha256-32la5GMQSrtTmynUaP8n7vLeogQ61PmQzQCy3QEZkaQ=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "310a9af807997c395d816ae827f7d91692eeb4f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -18,6 +55,22 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "lean4-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748752682,
+        "narHash": "sha256-6XFcyqSTx1CwNWqQvIc25cuQMwh3YXnbgr5cDiOCxBk=",
+        "owner": "leanprover-community",
+        "repo": "lean4-mode",
+        "rev": "1388f9d1429e38a39ab913c6daae55f6ce799479",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leanprover-community",
+        "repo": "lean4-mode",
         "type": "github"
       }
     },
@@ -58,6 +111,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1787525875,
+        "narHash": "sha256-sKbMlkDCBVmAjUVT94LwhVtET/YEMtZaFdn5UduWxz8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a3b98866eecd08edac6e61a3081e69540a35020f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -83,7 +152,10 @@
     },
     "root": {
       "inputs": {
+        "emacs-conf": "emacs-conf",
+        "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
+        "lean4-mode": "lean4-mode",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager",
