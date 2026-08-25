@@ -256,6 +256,7 @@
             tree-sitter-python
             tree-sitter-markdown
             tree-sitter-markdown-inline
+            tree-sitter-typst
             tree-sitter-nix
           ]
         ))

@@ -9,6 +9,7 @@
     go
     texliveFull
     texlab
+    tinymist
     typst
     typstyle
   ];
