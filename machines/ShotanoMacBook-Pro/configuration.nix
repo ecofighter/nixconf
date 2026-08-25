@@ -10,7 +10,7 @@
     texliveFull
     texlab
     typst
-    typstfmt
+    typstyle
   ];
   homebrew = {
     enable = true;
