@@ -18,6 +18,7 @@
       cleanup = "uninstall";
     };
     brews = [
+      "pympress"
       "container"
     ];
     casks = [
