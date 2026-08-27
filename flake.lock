@@ -3,11 +3,11 @@
     "emacs-conf": {
       "flake": false,
       "locked": {
-        "lastModified": 1787818468,
-        "narHash": "sha256-b7eiy6+T/WCVAxKorutYHhfq7tyz/355uIqA8MON/qQ=",
+        "lastModified": 1787821279,
+        "narHash": "sha256-fuiMW4X8cnEN4+dDb0q4m4pzlyxCXunZ8M6RKHencRM=",
         "owner": "ecofighter",
         "repo": ".emacs.d",
-        "rev": "48ba5b2d16ffe5c8359b62dc2be6b3527825718c",
+        "rev": "1527542e53673aab7530ae28a3a12dfe874b6260",
         "type": "github"
       },
       "original": {
