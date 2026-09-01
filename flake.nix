@@ -57,8 +57,8 @@
       };
 
       darwinConfigurations = {
-        "alice" = hosts.mkDarwinHost ./darwin/common.nix;
-        "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./darwin/common.nix;
+        "alice" = hosts.mkDarwinHost ./machines/alice;
+        "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./machines/shotano-macbook-pro;
       };
 
       homeConfigurations."haneta" = hosts.mkHome { username = "haneta"; };
