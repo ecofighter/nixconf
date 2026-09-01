@@ -115,7 +115,7 @@
                 plasma-manager.homeModules.plasma-manager
               ];
               home-manager.users.${username} = {
-                imports = [ ./home.nix ];
+                imports = [ ./home ];
                 home.username = username;
                 home.homeDirectory = homeDir;
               };
@@ -162,7 +162,7 @@
               ];
               users.users.${username}.home = homeDir;
               home-manager.users.${username} = {
-                imports = [ ./home.nix ];
+                imports = [ ./home ];
                 home.username = username;
                 home.homeDirectory = homeDir;
               };
@@ -205,7 +205,7 @@
               home.username = username;
               home.homeDirectory = homeDir;
             }
-            ./home.nix
+            ./home
           ];
         };
     };
