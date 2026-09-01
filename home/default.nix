@@ -7,8 +7,11 @@
     ./zsh.nix
     ./starship.nix
     ./cli-tools.nix
-    ./ghostty.nix
     ./emacs.nix
+    ./ghostty.nix
+    ./rclone.nix
+    ./mpv.nix
+    ./plasma.nix
   ];
 
   home.stateVersion = "26.05";
