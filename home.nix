@@ -138,11 +138,6 @@ in
         src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
     ];
-    envExtra = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-      if [[ -x "/opt/homebrew/bin/brew" ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-      fi
-    '';
   };
   programs.starship = {
     enable = true;

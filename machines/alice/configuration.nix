@@ -1,4 +1,9 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  config,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search by name, run:
@@ -12,10 +17,10 @@
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = true;
-      upgrade = true;
       cleanup = "uninstall";
     };
+    # nix-homebrew の宣言済み tap を nix-darwin 側が再 tap しないようにする
+    taps = builtins.attrNames config.nix-homebrew.taps;
     brews = [
       "container"
     ];

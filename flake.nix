@@ -24,6 +24,17 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
     emacs-conf = {
       url = "github:ecofighter/.emacs.d";
       flake = false;
@@ -46,10 +57,28 @@
       emacs-overlay,
       emacs-conf,
       lean4-mode,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
       ...
     }:
     let
       overlays = [ emacs-overlay.overlays.default ];
+      nixHomebrewModules = [
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            user = "arakaki";
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+            };
+            mutableTaps = false;
+            enableZshIntegration = true;
+          };
+        }
+      ];
     in
     {
       nixosConfigurations = {
@@ -105,7 +134,7 @@
           in
           nix-darwin.lib.darwinSystem {
             specialArgs = { inherit self; };
-            modules = [
+            modules = nixHomebrewModules ++ [
               ./machines/alice/configuration.nix
               {
                 nixpkgs.overlays = overlays;
@@ -151,7 +180,7 @@
           in
           nix-darwin.lib.darwinSystem {
             specialArgs = { inherit self; };
-            modules = [
+            modules = nixHomebrewModules ++ [
               ./machines/ShotanoMacBook-Pro/configuration.nix
               {
                 nixpkgs.overlays = overlays;
