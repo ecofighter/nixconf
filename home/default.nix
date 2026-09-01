@@ -4,6 +4,8 @@
   imports = [
     ./sops.nix
     ./packages.nix
+    ./zsh.nix
+    ./starship.nix
   ];
 
   home.stateVersion = "26.05";
