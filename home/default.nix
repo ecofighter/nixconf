@@ -8,6 +8,7 @@
     ./starship.nix
     ./cli-tools.nix
     ./ghostty.nix
+    ./emacs.nix
   ];
 
   home.stateVersion = "26.05";
