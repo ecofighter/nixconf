@@ -1,4 +1,0 @@
-/nix/store/sfi3z5xzs1nb4bl2inwpp43ipzzd83aa-nixos-system-schwertleite-26.11.20260831.34ab990.drv nixosConfigurations."schwertleite".config.system.build.toplevel.drvPath
-/nix/store/kzpfzxx53afagzq3l9mp5khl0sx70kxq-darwin-system-26.11.4cff07d.drv darwinConfigurations."alice".system.drvPath
-/nix/store/kzpfzxx53afagzq3l9mp5khl0sx70kxq-darwin-system-26.11.4cff07d.drv darwinConfigurations."ShotanoMacBook-Pro".system.drvPath
-/nix/store/04g3a1k9ywzpgmxvxs5c10mwkshmgsix-home-manager-generation.drv homeConfigurations."haneta".activationPackage.drvPath
