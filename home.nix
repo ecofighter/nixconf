@@ -57,6 +57,7 @@ in
     with pkgs;
     [
       ibm-plex
+      _0xproto
       nerd-fonts.symbols-only
       zsh-completions
       nixfmt
@@ -75,6 +76,9 @@ in
       typst
       tinymist
       typstyle
+      go
+      texliveFull
+      texlab
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
