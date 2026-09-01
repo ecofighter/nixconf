@@ -79,146 +79,105 @@
           };
         }
       ];
+      mkNixosHost =
+        configurationFile:
+        let
+          username = "arakaki";
+          homeDir = "/home/${username}";
+        in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit self; };
+          system = "x86_64-linux";
+          modules = [
+            configurationFile
+            {
+              nixpkgs.overlays = overlays;
+              nix.channel.enable = false;
+              nix.gc = {
+                automatic = true;
+                dates = "weekly";
+              };
+              nix.optimise = {
+                automatic = true;
+                dates = "weekly";
+              };
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                isNixOS = true;
+                inherit emacs-conf lean4-mode;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                plasma-manager.homeModules.plasma-manager
+              ];
+              home-manager.users.${username} = {
+                imports = [ ./home.nix ];
+                home.username = username;
+                home.homeDirectory = homeDir;
+              };
+            }
+          ];
+        };
+      mkDarwinHost =
+        configurationFile:
+        let
+          username = "arakaki";
+          homeDir = "/Users/${username}";
+        in
+        nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit self; };
+          modules = nixHomebrewModules ++ [
+            configurationFile
+            {
+              nixpkgs.overlays = overlays;
+              nix.channel.enable = false;
+              nix.gc = {
+                automatic = true;
+                interval = {
+                  Weekday = 7;
+                };
+              };
+              nix.optimise = {
+                automatic = true;
+                interval = {
+                  Weekday = 7;
+                };
+              };
+            }
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                isNixOS = false;
+                inherit emacs-conf lean4-mode;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                plasma-manager.homeModules.plasma-manager
+              ];
+              users.users.${username}.home = homeDir;
+              home-manager.users.${username} = {
+                imports = [ ./home.nix ];
+                home.username = username;
+                home.homeDirectory = homeDir;
+              };
+            }
+          ];
+        };
     in
     {
       nixosConfigurations = {
-        "schwertleite" =
-          let
-            username = "arakaki";
-            homeDir = "/home/${username}";
-          in
-          nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit self; };
-            system = "x86_64-linux";
-            modules = [
-              ./machines/schwertleite/configuration.nix
-              {
-                nixpkgs.overlays = overlays;
-                nix.channel.enable = false;
-                nix.gc = {
-                  automatic = true;
-                  dates = "weekly";
-                };
-                nix.optimise = {
-                  automatic = true;
-                  dates = "weekly";
-                };
-              }
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.extraSpecialArgs = {
-                  isNixOS = true;
-                  inherit emacs-conf lean4-mode;
-                };
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                  plasma-manager.homeModules.plasma-manager
-                ];
-                home-manager.users.arakaki = {
-                  imports = [ ./home.nix ];
-                  home.username = username;
-                  home.homeDirectory = homeDir;
-                };
-              }
-            ];
-          };
+        "schwertleite" = mkNixosHost ./machines/schwertleite/configuration.nix;
       };
 
       darwinConfigurations = {
-        "alice" =
-          let
-            username = "arakaki";
-            homeDir = "/Users/${username}";
-          in
-          nix-darwin.lib.darwinSystem {
-            specialArgs = { inherit self; };
-            modules = nixHomebrewModules ++ [
-              ./machines/alice/configuration.nix
-              {
-                nixpkgs.overlays = overlays;
-                nix.channel.enable = false;
-                nix.gc = {
-                  automatic = true;
-                  interval = {
-                    Weekday = 7;
-                  };
-                };
-                nix.optimise = {
-                  automatic = true;
-                  interval = {
-                    Weekday = 7;
-                  };
-                };
-              }
-              home-manager.darwinModules.home-manager
-              {
-                home-manager.extraSpecialArgs = {
-                  isNixOS = false;
-                  inherit emacs-conf lean4-mode;
-                };
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                  plasma-manager.homeModules.plasma-manager
-                ];
-                users.users.arakaki.home = "/Users/arakaki";
-                home-manager.users.arakaki = {
-                  imports = [ ./home.nix ];
-                  home.username = username;
-                  home.homeDirectory = homeDir;
-                };
-              }
-            ];
-          };
-        "ShotanoMacBook-Pro" =
-          let
-            username = "arakaki";
-            homeDir = "/Users/${username}";
-          in
-          nix-darwin.lib.darwinSystem {
-            specialArgs = { inherit self; };
-            modules = nixHomebrewModules ++ [
-              ./machines/ShotanoMacBook-Pro/configuration.nix
-              {
-                nixpkgs.overlays = overlays;
-                nix.channel.enable = false;
-                nix.gc = {
-                  automatic = true;
-                  interval = {
-                    Weekday = 7;
-                  };
-                };
-                nix.optimise = {
-                  automatic = true;
-                  interval = {
-                    Weekday = 7;
-                  };
-                };
-              }
-              home-manager.darwinModules.home-manager
-              {
-                home-manager.extraSpecialArgs = {
-                  isNixOS = false;
-                  inherit emacs-conf lean4-mode;
-                };
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                  plasma-manager.homeModules.plasma-manager
-                ];
-                users.users.arakaki.home = "/Users/arakaki";
-                home-manager.users.arakaki = {
-                  imports = [ ./home.nix ];
-                  home.username = username;
-                  home.homeDirectory = homeDir;
-                };
-              }
-            ];
-          };
+        "alice" = mkDarwinHost ./darwin/common.nix;
+        "ShotanoMacBook-Pro" = mkDarwinHost ./darwin/common.nix;
       };
 
       homeConfigurations."haneta" =
