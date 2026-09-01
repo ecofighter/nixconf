@@ -34,73 +34,6 @@ let
 in
 {
   imports = [ ./home ];
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.eza = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.yazi = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.bat = {
-    enable = true;
-  };
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        name = "Shota Arakaki";
-        email = "syotaa1@gmail.com";
-      };
-      credential."https://github.com".helper = "!op plugin run -- gh auth git-credential";
-    };
-    ignores = [ ".DS_Store" ];
-  };
-  programs.difftastic = {
-    enable = true;
-    git.enable = true;
-  };
-  programs.ghostty = {
-    enable = true;
-    package =
-      if pkgs.stdenv.hostPlatform.isLinux then
-        pkgs.ghostty
-      else if pkgs.stdenv.hostPlatform.isDarwin then
-        pkgs.ghostty-bin
-      else
-        throw "unsupported system ${pkgs.stdenv.hostPlatform.system}";
-    enableZshIntegration = true;
-
-    settings = {
-      font-family = [
-        "IBM Plex Mono"
-        "IBM Plex Sans JP"
-      ];
-      font-feature = "-dlig";
-      theme = "Kanagawa Wave";
-      keybind = "shift+enter=text:\\n";
-      background-opacity = 0.9;
-      window-decoration = "auto";
-    };
-  };
-  programs.vim = {
-    enable = true;
-    defaultEditor = true;
-  };
   xdg.configFile."emacs" = {
     source = emacs-conf;
     recursive = true;
@@ -132,16 +65,6 @@ in
           ]
         ))
       ];
-  };
-  programs.vscode = {
-    enable = true;
-  };
-  programs.poetry = {
-    enable = true;
-    settings = {
-      virtualenvs.create = true;
-      virtualenvs.in-project = true;
-    };
   };
   programs.rclone = {
     enable = pkgs.stdenv.hostPlatform.isLinux;

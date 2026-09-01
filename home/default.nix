@@ -6,6 +6,8 @@
     ./packages.nix
     ./zsh.nix
     ./starship.nix
+    ./cli-tools.nix
+    ./ghostty.nix
   ];
 
   home.stateVersion = "26.05";
