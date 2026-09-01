@@ -33,7 +33,7 @@ let
   };
 in
 {
-  home.stateVersion = "26.05";
+  imports = [ ./home ];
 
   sops = {
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
@@ -50,9 +50,6 @@ in
     };
   };
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.local/bin"
-  ];
   home.packages =
     with pkgs;
     [
@@ -508,6 +505,4 @@ in
       };
     };
   };
-
-  programs.home-manager.enable = true;
 }
