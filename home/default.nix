@@ -1,7 +1,10 @@
 { config, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    ./sops.nix
+    ./packages.nix
+  ];
 
   home.stateVersion = "26.05";
 

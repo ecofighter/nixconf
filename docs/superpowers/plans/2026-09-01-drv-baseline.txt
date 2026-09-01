@@ -1,4 +1,4 @@
-/nix/store/zgramq1plr9bc1xgsfwclh0wzsgjjw7m-nixos-system-schwertleite-26.11.20260831.34ab990.drv nixosConfigurations."schwertleite".config.system.build.toplevel.drvPath
-/nix/store/sw0zs0wydzbpl7ql3ql42188bfmrqbz8-darwin-system-26.11.4cff07d.drv darwinConfigurations."alice".system.drvPath
-/nix/store/sw0zs0wydzbpl7ql3ql42188bfmrqbz8-darwin-system-26.11.4cff07d.drv darwinConfigurations."ShotanoMacBook-Pro".system.drvPath
-/nix/store/p7l5f1vqm8avip6a4niyljr9ff6saf3q-home-manager-generation.drv homeConfigurations."haneta".activationPackage.drvPath
+/nix/store/wa0gcay08y1x2w8bvwdjkw4an23bdbz6-nixos-system-schwertleite-26.11.20260831.34ab990.drv nixosConfigurations."schwertleite".config.system.build.toplevel.drvPath
+/nix/store/kzpfzxx53afagzq3l9mp5khl0sx70kxq-darwin-system-26.11.4cff07d.drv darwinConfigurations."alice".system.drvPath
+/nix/store/kzpfzxx53afagzq3l9mp5khl0sx70kxq-darwin-system-26.11.4cff07d.drv darwinConfigurations."ShotanoMacBook-Pro".system.drvPath
+/nix/store/4chhvqsfnschalizvqf2vl51bdvdxn1k-home-manager-generation.drv homeConfigurations."haneta".activationPackage.drvPath

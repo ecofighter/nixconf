@@ -35,59 +35,6 @@ in
 {
   imports = [ ./home ];
 
-  sops = {
-    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-
-    secrets = {
-      rclone_onedrive_token = {
-        sopsFile = ./secrets/rclone_onedrive_token.bin;
-        format = "binary";
-      };
-      rclone_onedrive_drive_id = {
-        sopsFile = ./secrets/rclone_onedrive_drive_id.bin;
-        format = "binary";
-      };
-    };
-  };
-
-  home.packages =
-    with pkgs;
-    [
-      ibm-plex
-      _0xproto
-      nerd-fonts.symbols-only
-      zsh-completions
-      nixfmt
-      nixd
-      age
-      sops
-      ripgrep
-      gh
-      devcontainer
-      pandoc
-      (hunspell.withDicts (d: with d; [ en_US-large ]))
-      slack
-      glibtool
-      cmake
-      poppler-utils
-      typst
-      tinymist
-      typstyle
-      go
-      texliveFull
-      texlab
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      wl-clipboard
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      container
-      pympress
-      discord
-      zoom-us
-      _1password-cli
-    ];
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
