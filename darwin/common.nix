@@ -13,10 +13,9 @@
       cleanup = "uninstall";
     };
     taps = builtins.attrNames config.nix-homebrew.taps;
-    brews = [
-      "container"
-      "pympress"
-    ];
+    brews = [ ];
+    # nixpkgs に無い、または cask がシステム統合 (インプットメソッド登録・
+    # システム機能拡張・/Applications 配置) を担うものだけを残す。
     casks = [
       "macskk"
       "karabiner-elements"
@@ -25,12 +24,9 @@
       "microsoft-excel"
       "microsoft-teams"
       "microsoft-word"
-      "zoom"
       "obs"
-      "discord"
       "jabref"
       "1password"
-      "1password-cli"
       "docker-desktop"
       "codex-app"
     ];
