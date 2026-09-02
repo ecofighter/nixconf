@@ -37,6 +37,10 @@
     shellAliases = {
       em = "emg";
     };
+    # 1Password shell plugins (`op plugin init` が生成する) があれば読み込む。
+    initContent = ''
+      [[ -f "$HOME/.config/op/plugins.sh" ]] && source "$HOME/.config/op/plugins.sh"
+    '';
     localVariables = {
       ZSH_AUTOSUGGEST_STRATEGY = [
         "completion"
