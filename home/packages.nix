@@ -34,7 +34,6 @@
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       container
       pympress
-      discord
       zoom-us
       _1password-cli
     ];

@@ -29,6 +29,7 @@
       "1password"
       "docker-desktop"
       "codex-app"
+      "discord"
     ];
   };
 
