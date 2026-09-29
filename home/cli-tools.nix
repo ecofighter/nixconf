@@ -54,4 +54,7 @@
       virtualenvs.in-project = true;
     };
   };
+  programs.uv = {
+    enable = true;
+  };
 }
