@@ -7,6 +7,7 @@
     ./zsh.nix
     ./starship.nix
     ./cli-tools.nix
+    ./ssh.nix
     ./emacs.nix
     ./ghostty.nix
     ./rclone.nix

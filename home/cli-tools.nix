@@ -32,7 +32,10 @@
         name = "Shota Arakaki";
         email = "syotaa1@gmail.com";
       };
-      credential."https://github.com".helper = "!op plugin run -- gh auth git-credential";
+      credential = {
+        helper = "";
+        "https://github.com".helper = "!op plugin run -- gh auth git-credential";
+      };
     };
     ignores = [ ".DS_Store" ];
   };
