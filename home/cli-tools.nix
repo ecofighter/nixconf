@@ -59,5 +59,8 @@
   };
   programs.uv = {
     enable = true;
+    settings = {
+      python-preference = "system";
+    };
   };
 }

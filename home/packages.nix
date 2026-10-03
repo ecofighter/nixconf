@@ -25,6 +25,7 @@
       tinymist
       typstyle
       go
+      python3
       texliveFull
       texlab
     ]
