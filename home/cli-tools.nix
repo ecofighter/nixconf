@@ -34,7 +34,7 @@
       };
       credential = {
         helper = "";
-        "https://github.com".helper = "!op plugin run -- gh auth git-credential";
+        "https://github.com".helper = "!gh auth git-credential";
       };
     };
     ignores = [ ".DS_Store" ];
