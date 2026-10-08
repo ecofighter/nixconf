@@ -16,6 +16,7 @@ let
     nix-homebrew
     homebrew-core
     homebrew-cask
+    homebrew-anthropics
     ;
 
   overlays = [ emacs-overlay.overlays.default ];
@@ -38,6 +39,7 @@ let
         taps = {
           "homebrew/homebrew-core" = homebrew-core;
           "homebrew/homebrew-cask" = homebrew-cask;
+          "anthropics/homebrew-tap" = homebrew-anthropics;
         };
         mutableTaps = false;
         enableZshIntegration = true;

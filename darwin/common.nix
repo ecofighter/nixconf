@@ -30,6 +30,7 @@
       "docker-desktop"
       "codex-app"
       "discord"
+      "anthropics/tap/ant"
     ];
   };
 

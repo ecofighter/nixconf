@@ -75,6 +75,22 @@
         "type": "github"
       }
     },
+    "homebrew-anthropics": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791429723,
+        "narHash": "sha256-UJdVXvSsjTaXjJOq/EdsafVfn8QLnngrtsSfklr6Xts=",
+        "owner": "anthropics",
+        "repo": "homebrew-tap",
+        "rev": "c71805dd1d5b0230608999172ba622a8f21e813d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anthropics",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "homebrew-cask": {
       "flake": false,
       "locked": {
@@ -222,6 +238,7 @@
         "emacs-conf": "emacs-conf",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
+        "homebrew-anthropics": "homebrew-anthropics",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "lean4-mode": "lean4-mode",

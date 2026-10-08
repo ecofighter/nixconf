@@ -35,6 +35,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-anthropics = {
+      url = "github:anthropics/homebrew-tap";
+      flake = false;
+    };
     emacs-conf = {
       url = "github:ecofighter/.emacs.d";
       flake = false;
