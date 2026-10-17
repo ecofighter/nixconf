@@ -11,7 +11,7 @@
       nixfmt
       nixd
       age
-      sops
+      # sops
       ripgrep
       gh
       devcontainer

@@ -8,7 +8,7 @@ let
     nixpkgs
     nix-darwin
     home-manager
-    sops-nix
+    # sops-nix
     plasma-manager
     emacs-overlay
     emacs-conf
@@ -22,7 +22,7 @@ let
   overlays = [ emacs-overlay.overlays.default ];
 
   hmSharedModules = [
-    sops-nix.homeManagerModules.sops
+    # sops-nix.homeManagerModules.sops
     plasma-manager.homeModules.plasma-manager
   ];
 
