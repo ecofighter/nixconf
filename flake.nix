@@ -63,6 +63,7 @@
 
       darwinConfigurations = {
         "alice" = hosts.mkDarwinHost ./machines/alice;
+        "harmony" = hosts.mkDarwinHost ./machines/harmony;
         "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./machines/shotano-macbook-pro;
       };
 
