@@ -27,7 +27,6 @@
       "obs"
       "jabref"
       "1password"
-      "docker-desktop"
       "codex-app"
       "discord"
       "anthropics/tap/ant"
