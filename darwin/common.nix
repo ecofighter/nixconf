@@ -27,7 +27,7 @@
       "obs"
       "jabref"
       "1password"
-      "codex-app"
+      "claude"
       "discord"
       "anthropics/tap/ant"
     ];
