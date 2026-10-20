@@ -43,7 +43,7 @@
     enable = true;
     git.enable = true;
   };
-  programs.vim = {
+  programs.neovim = {
     enable = true;
     defaultEditor = true;
   };
