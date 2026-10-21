@@ -8,7 +8,7 @@ attrs=(
   'darwinConfigurations."alice".system.drvPath'
   'darwinConfigurations."harmony".system.drvPath'
   'darwinConfigurations."ShotanoMacBook-Pro".system.drvPath'
-  'homeConfigurations."haneta".activationPackage.drvPath'
+  'homeConfigurations."arakaki@dynabook".activationPackage.drvPath'
 )
 for attr in "${attrs[@]}"; do
   printf '%s %s\n' "$(nix eval --raw "path:$PWD#$attr")" "$attr"

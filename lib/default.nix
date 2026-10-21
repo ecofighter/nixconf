@@ -139,6 +139,11 @@ in
       ];
     };
 
+  # 非 NixOS の Linux 向けスタンドアロン構成。保証するのは評価が通ることまで。
+  # - home/ の isLinux 項目は、Nix のクロージャで完結し mkHome で評価できればここにも入れる
+  # - NixOS 層 (nixos/ や /run/current-system) に依存するもの、評価できないものは isNixOS に絞る
+  # - スタンドアロン向けの補完は、HM オプションの既定値が nixosConfig に依存して
+  #   NixOS とここで値が食い違う場合に限り、lib.mkIf (isLinux && !isNixOS) で入れる
   mkHome =
     {
       username,

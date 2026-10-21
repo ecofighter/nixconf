@@ -67,6 +67,6 @@
         "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./machines/shotano-macbook-pro;
       };
 
-      homeConfigurations."haneta" = hosts.mkHome { username = "haneta"; };
+      homeConfigurations."arakaki@dynabook" = hosts.mkHome { username = "arakaki"; };
     };
 }
