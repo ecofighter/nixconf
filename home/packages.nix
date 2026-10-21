@@ -1,6 +1,15 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  isNixOS,
+  ...
+}:
 
 {
+  # NixOS では HM の既定値が nixos 側の fontconfig を引き継いで true になるが、
+  # スタンドアロン (非 NixOS) では false のままで home.packages のフォントが見えないため補う
+  fonts.fontconfig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && !isNixOS) true;
+
   home.packages =
     with pkgs;
     [
@@ -31,6 +40,9 @@
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
+      discord
+      libreoffice-qt
+      pympress
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       container

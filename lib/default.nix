@@ -19,6 +19,10 @@ let
     homebrew-anthropics
     ;
 
+  # ユーザー固有の値 (git identity、home.stateVersion など) は home/users/<username>.nix に置く。
+  # 全 builder がこのファイルを必須として import する。共有の home/<feature>.nix にはユーザー固有の値を書かない
+  userModule = username: ../home/users + "/${username}.nix";
+
   overlays = [ emacs-overlay.overlays.default ];
 
   hmSharedModules = [
@@ -48,17 +52,26 @@ let
   ];
 in
 {
+  # NixOS ホストの追加手順:
+  #   1. machines/<host>/ に生成された hardware-configuration.nix を置く (nixpkgs.hostPlatform が無ければ default.nix で設定)
+  #   2. machines/<host>/default.nix で ../../nixos/base.nix と、GUI 機なら ../../nixos/desktop.nix を import し、
+  #      hostName・boot・system.stateVersion などホスト固有の設定を書く
+  #   3. flake.nix に mkNixosHost { machine = ./machines/<host>; } を追加する。arakaki 以外なら username を渡し、
+  #      home/users/<username>.nix (home.stateVersion を含む) を作る
   mkNixosHost =
-    configurationFile:
+    {
+      machine,
+      username ? "arakaki",
+    }:
     let
-      username = "arakaki";
       homeDir = "/home/${username}";
     in
+    assert
+      builtins.pathExists (userModule username) || throw "nixconf: missing home/users/${username}.nix";
     nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit self; };
-      system = "x86_64-linux";
+      specialArgs = { inherit self username; };
       modules = [
-        configurationFile
+        machine
         {
           nixpkgs.overlays = overlays;
           nix.channel.enable = false;
@@ -78,7 +91,10 @@ in
           home-manager.useUserPackages = true;
           home-manager.sharedModules = hmSharedModules;
           home-manager.users.${username} = {
-            imports = [ ../home ];
+            imports = [
+              ../home
+              (userModule username)
+            ];
             home.username = username;
             home.homeDirectory = homeDir;
           };
@@ -87,7 +103,7 @@ in
     };
 
   mkDarwinHost =
-    configurationFile:
+    machine:
     let
       username = "arakaki";
       homeDir = "/Users/${username}";
@@ -95,7 +111,7 @@ in
     nix-darwin.lib.darwinSystem {
       specialArgs = { inherit self; };
       modules = nixHomebrewModules ++ [
-        configurationFile
+        machine
         {
           nixpkgs.overlays = overlays;
           nix.channel.enable = false;
@@ -120,7 +136,10 @@ in
           home-manager.sharedModules = hmSharedModules;
           users.users.${username}.home = homeDir;
           home-manager.users.${username} = {
-            imports = [ ../home ];
+            imports = [
+              ../home
+              (userModule username)
+            ];
             home.username = username;
             home.homeDirectory = homeDir;
           };
@@ -128,15 +147,25 @@ in
       ];
     };
 
+  # 非 NixOS の Linux 向けスタンドアロン構成。保証するのは評価が通ることまで。
+  # - home/ の isLinux 項目は、Nix のクロージャで完結し mkHome で評価できればここにも入れる
+  # - NixOS 層 (nixos/ や /run/current-system) に依存するもの、評価できないものは isNixOS に絞る
+  # - スタンドアロン向けの補完は、HM オプションの既定値が nixosConfig に依存して
+  #   NixOS とここで値が食い違う場合に限り、lib.mkIf (isLinux && !isNixOS) で入れる
   mkHome =
-    { username }:
+    {
+      username,
+      system ? "x86_64-linux",
+    }:
     let
       homeDir = "/home/${username}";
     in
+    assert
+      builtins.pathExists (userModule username) || throw "nixconf: missing home/users/${username}.nix";
     home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = mkExtraSpecialArgs false;
       pkgs = import nixpkgs {
-        system = "x86_64-linux";
+        inherit system;
         inherit overlays;
       };
       modules = hmSharedModules ++ [
@@ -149,6 +178,7 @@ in
           home.homeDirectory = homeDir;
         }
         ../home
+        (userModule username)
       ];
     };
 }

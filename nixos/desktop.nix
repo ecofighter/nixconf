@@ -1,24 +1,24 @@
-{ pkgs, ... }:
+# NixOS のシステム層のうち、グラフィカルセッションを前提とするもの (デスクトップ、音声、フォント、入力メソッド、GUI アプリ)。
+# GUI 機の machines/<host>/default.nix が base.nix と合わせて import する
+{ pkgs, username, ... }:
 
 {
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
-
-  services.resolved.enable = true;
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Asia/Tokyo";
-
-  i18n.defaultLocale = "ja_JP.UTF-8";
-  i18n.extraLocales = [ "en_US.UTF-8/UTF-8" ];
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
     fcitx5.addons = with pkgs; [
       kdePackages.fcitx5-skk-qt
     ];
+    fcitx5.settings.inputMethod = {
+      GroupOrder."0" = "Default";
+      "Groups/0" = {
+        Name = "Default";
+        "Default Layout" = "jp";
+        DefaultIM = "skk";
+      };
+      "Groups/0/Items/0".Name = "keyboard-jp";
+      "Groups/0/Items/1".Name = "skk";
+    };
   };
   fonts = {
     packages = with pkgs; [
@@ -51,23 +51,20 @@
     pulse.enable = true;
   };
 
-  users.users.arakaki = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  programs.zsh.enable = true;
-  programs.nix-ld.enable = true;
-  programs.git.enable = true;
   programs.firefox = {
     enable = true;
     languagePacks = [ "ja" ];
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-  ];
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ username ];
+  };
+
+  programs.zoom-us.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
 }

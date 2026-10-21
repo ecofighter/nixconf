@@ -3,7 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../linux/common.nix
+    ../../nixos/base.nix
+    ../../nixos/desktop.nix
   ];
 
   fileSystems = {

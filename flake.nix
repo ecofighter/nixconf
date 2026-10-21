@@ -58,7 +58,7 @@
     in
     {
       nixosConfigurations = {
-        "schwertleite" = hosts.mkNixosHost ./machines/schwertleite/configuration.nix;
+        "schwertleite" = hosts.mkNixosHost { machine = ./machines/schwertleite; };
       };
 
       darwinConfigurations = {
@@ -67,6 +67,6 @@
         "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./machines/shotano-macbook-pro;
       };
 
-      homeConfigurations."haneta" = hosts.mkHome { username = "haneta"; };
+      homeConfigurations."arakaki@dynabook" = hosts.mkHome { username = "arakaki"; };
     };
 }

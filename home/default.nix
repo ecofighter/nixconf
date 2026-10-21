@@ -16,8 +16,6 @@
     ./plasma.nix
   ];
 
-  home.stateVersion = "26.05";
-
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/bin"
   ];
