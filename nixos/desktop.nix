@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   i18n.inputMethod = {
@@ -42,5 +42,11 @@
   programs.firefox = {
     enable = true;
     languagePacks = [ "ja" ];
+  };
+
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ username ];
   };
 }
