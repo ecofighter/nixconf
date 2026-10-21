@@ -58,7 +58,7 @@
     in
     {
       nixosConfigurations = {
-        "schwertleite" = hosts.mkNixosHost ./machines/schwertleite/configuration.nix;
+        "schwertleite" = hosts.mkNixosHost { machine = ./machines/schwertleite; };
       };
 
       darwinConfigurations = {

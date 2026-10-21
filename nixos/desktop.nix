@@ -1,18 +1,6 @@
 { pkgs, ... }:
 
 {
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
-
-  services.resolved.enable = true;
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Asia/Tokyo";
-
-  i18n.defaultLocale = "ja_JP.UTF-8";
-  i18n.extraLocales = [ "en_US.UTF-8/UTF-8" ];
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -51,23 +39,8 @@
     pulse.enable = true;
   };
 
-  users.users.arakaki = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  programs.zsh.enable = true;
-  programs.nix-ld.enable = true;
-  programs.git.enable = true;
   programs.firefox = {
     enable = true;
     languagePacks = [ "ja" ];
   };
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-  ];
 }

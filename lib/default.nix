@@ -19,6 +19,8 @@ let
     homebrew-anthropics
     ;
 
+  userModule = username: ../home/users + "/${username}.nix";
+
   overlays = [ emacs-overlay.overlays.default ];
 
   hmSharedModules = [
@@ -49,16 +51,19 @@ let
 in
 {
   mkNixosHost =
-    configurationFile:
+    {
+      machine,
+      username ? "arakaki",
+    }:
     let
-      username = "arakaki";
       homeDir = "/home/${username}";
     in
+    assert
+      builtins.pathExists (userModule username) || throw "nixconf: missing home/users/${username}.nix";
     nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit self; };
-      system = "x86_64-linux";
+      specialArgs = { inherit self username; };
       modules = [
-        configurationFile
+        machine
         {
           nixpkgs.overlays = overlays;
           nix.channel.enable = false;
@@ -78,7 +83,10 @@ in
           home-manager.useUserPackages = true;
           home-manager.sharedModules = hmSharedModules;
           home-manager.users.${username} = {
-            imports = [ ../home ];
+            imports = [
+              ../home
+              (userModule username)
+            ];
             home.username = username;
             home.homeDirectory = homeDir;
           };
@@ -87,7 +95,7 @@ in
     };
 
   mkDarwinHost =
-    configurationFile:
+    machine:
     let
       username = "arakaki";
       homeDir = "/Users/${username}";
@@ -95,7 +103,7 @@ in
     nix-darwin.lib.darwinSystem {
       specialArgs = { inherit self; };
       modules = nixHomebrewModules ++ [
-        configurationFile
+        machine
         {
           nixpkgs.overlays = overlays;
           nix.channel.enable = false;
@@ -120,7 +128,10 @@ in
           home-manager.sharedModules = hmSharedModules;
           users.users.${username}.home = homeDir;
           home-manager.users.${username} = {
-            imports = [ ../home ];
+            imports = [
+              ../home
+              (userModule username)
+            ];
             home.username = username;
             home.homeDirectory = homeDir;
           };
@@ -129,14 +140,19 @@ in
     };
 
   mkHome =
-    { username }:
+    {
+      username,
+      system ? "x86_64-linux",
+    }:
     let
       homeDir = "/home/${username}";
     in
+    assert
+      builtins.pathExists (userModule username) || throw "nixconf: missing home/users/${username}.nix";
     home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = mkExtraSpecialArgs false;
       pkgs = import nixpkgs {
-        system = "x86_64-linux";
+        inherit system;
         inherit overlays;
       };
       modules = hmSharedModules ++ [
@@ -149,6 +165,7 @@ in
           home.homeDirectory = homeDir;
         }
         ../home
+        (userModule username)
       ];
     };
 }
