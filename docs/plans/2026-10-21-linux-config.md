@@ -290,25 +290,23 @@
 
 #### D-14: GUI アプリ (home 層、haneta にも入る)
 
-`home/packages.nix` に `let` で真偽値を 1 つ定義し、既存の `isLinux` リストと Darwin リストの間に専用のリストを挟む。
+`home/packages.nix` の既存の `isLinux` リスト (`wl-clipboard` がある) に追加する。
 
 ```nix
-let
-  # desktop フラグ (D-4) を導入する場合はこの式だけを差し替える
-  withLinuxDesktopApps = pkgs.stdenv.hostPlatform.isLinux;
-in
-...
-      ++ lib.optionals withLinuxDesktopApps [
-        discord
-        libreoffice-qt
-        pympress
-      ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      wl-clipboard
+      discord
+      libreoffice-qt
+      pympress
+    ]
 ```
+
+- (実行中に変更) 当初は `withLinuxDesktopApps` という専用の真偽値とリストに分けていたが、統合した。D-4 で `wl-clipboard` も GUI 専用項目として `desktop` フラグの対象に挙がっているため、分けても条件は同じになり、意味がないため
 
 - 置き場所: Darwin のリストは変えない (Darwin の drvPath を不変に保つため)
 - 実行前確認 (U-4) の結果: teams-for-linux と JabRef は拒否されたので入れない。LibreOffice と pympress は入れる
 - スタンドアロン構成にも入れる根拠は D-7 の P1。いずれも `mkHome` で評価できることを確認済み
-- 将来 `desktop` フラグを導入するときは、`withLinuxDesktopApps = pkgs.stdenv.hostPlatform.isLinux && desktop;` に差し替える
+- 将来 `desktop` フラグを導入するときは、このリストの条件を `stdenv.hostPlatform.isLinux && desktop` に差し替える
 
 #### D-15: コンテナ実行環境は podman (`nixos/base.nix`、`programs.git.enable` の後)
 

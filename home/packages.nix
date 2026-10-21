@@ -5,10 +5,6 @@
   ...
 }:
 
-let
-  # desktop フラグを導入する場合はこの式だけを差し替える
-  withLinuxDesktopApps = pkgs.stdenv.hostPlatform.isLinux;
-in
 {
   # NixOS では HM の既定値が nixos 側の fontconfig を引き継いで true になるが、
   # スタンドアロン (非 NixOS) では false のままで home.packages のフォントが見えないため補う
@@ -44,8 +40,6 @@ in
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
-    ]
-    ++ lib.optionals withLinuxDesktopApps [
       discord
       libreoffice-qt
       pympress
