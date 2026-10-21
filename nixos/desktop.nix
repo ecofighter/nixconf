@@ -1,3 +1,5 @@
+# NixOS のシステム層のうち、グラフィカルセッションを前提とするもの (デスクトップ、音声、フォント、入力メソッド、GUI アプリ)。
+# GUI 機の machines/<host>/default.nix が base.nix と合わせて import する
 { pkgs, username, ... }:
 
 {

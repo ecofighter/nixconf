@@ -19,6 +19,8 @@ let
     homebrew-anthropics
     ;
 
+  # ユーザー固有の値 (git identity、home.stateVersion など) は home/users/<username>.nix に置く。
+  # 全 builder がこのファイルを必須として import する。共有の home/<feature>.nix にはユーザー固有の値を書かない
   userModule = username: ../home/users + "/${username}.nix";
 
   overlays = [ emacs-overlay.overlays.default ];
@@ -50,6 +52,12 @@ let
   ];
 in
 {
+  # NixOS ホストの追加手順:
+  #   1. machines/<host>/ に生成された hardware-configuration.nix を置く (nixpkgs.hostPlatform が無ければ default.nix で設定)
+  #   2. machines/<host>/default.nix で ../../nixos/base.nix と、GUI 機なら ../../nixos/desktop.nix を import し、
+  #      hostName・boot・system.stateVersion などホスト固有の設定を書く
+  #   3. flake.nix に mkNixosHost { machine = ./machines/<host>; } を追加する。arakaki 以外なら username を渡し、
+  #      home/users/<username>.nix (home.stateVersion を含む) を作る
   mkNixosHost =
     {
       machine,

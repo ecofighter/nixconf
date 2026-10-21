@@ -1,3 +1,6 @@
+# NixOS のシステム層のうち、GUI の有無を問わずどのマシンにも必要なもの。
+# グラフィカルセッション前提のものは desktop.nix、ハードウェアやホスト固有のものは machines/<host>/default.nix に置く。
+# 非 NixOS のスタンドアロン構成 (mkHome) はこの層を読まないので、そちらにも要るものは home/ に置く
 { pkgs, username, ... }:
 
 {
