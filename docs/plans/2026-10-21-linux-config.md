@@ -454,7 +454,7 @@ in
   - `nix eval --raw "$F#nixosConfigurations.schwertleite.config.home-manager.users.arakaki.programs.git.settings.user.name"` → `Shota Arakaki`
   - `darwinConfigurations.alice.config.home-manager.users.arakaki...` で同じ評価 → `Shota Arakaki`
   - `nix flake check` が通る
-- 注意点: この時点で haneta には git identity が無い。T-4 で `useConfigOnly` を入れる
+- 注意点: この時点で haneta には git identity が無い。T-4 でユーザーを arakaki に統一すると、`home/users/arakaki.nix` から identity が入る (D-10 の改訂)
 
 ### T-4: スタンドアロン構成を arakaki に統一し整理する
 
@@ -626,7 +626,7 @@ T-1 → T-2 → T-3 → T-4 → T-5 → T-6 → T-7 → T-8 → T-9 → (T-10) �
 - `linux/` は `nixos/` に改名した。汎用 Linux 向けの設定を誤って置かないようにするため
 - `home.stateVersion` はユーザーごとのファイルに移した。per-user の規則と一致させるため
 - Darwin の builder シグネチャは変えなかった。利用者がいないため
-- haneta の git identity は、未設定のまま放置せず `useConfigOnly` で止める。誤った identity で黙ってコミットされるのを防ぐため
+- haneta の git identity は、未設定のまま放置せず `useConfigOnly` で止める案だった。実行前確認で、ユーザーを arakaki に統一する方針に置き換わった (D-10)
 - haneta に GUI アプリを入れるかどうかは、場当たり的に決めず、評価で確かめられる規則 P1〜P3 で判定する
 - 1Password、Zoom、OBS はシステム層に置いた。home 層ではシステムとの統合が失われるため
 - 評価では確かめられない項目は T-11 の手動確認にまとめた
