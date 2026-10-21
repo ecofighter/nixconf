@@ -49,4 +49,10 @@
     enable = true;
     polkitPolicyOwners = [ username ];
   };
+
+  programs.zoom-us.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
 }
