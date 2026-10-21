@@ -28,10 +28,6 @@
   programs.git = {
     enable = true;
     settings = {
-      user = {
-        name = "Shota Arakaki";
-        email = "syotaa1@gmail.com";
-      };
       credential = {
         helper = "";
         "https://github.com".helper = "!gh auth git-credential";
