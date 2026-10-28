@@ -29,6 +29,7 @@
       "1password"
       "claude"
       "discord"
+      "adobe-acrobat-reader"
       "anthropics/tap/ant"
     ];
   };
