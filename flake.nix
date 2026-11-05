@@ -44,6 +44,11 @@
       url = "github:ecofighter/.emacs.d";
       flake = false;
     };
+    plamo-translate = {
+      url = "github:ecofighter/plamo-translate";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     # nixpkgs に無いため個別に供給する (init.el からは :ensure nil で参照)
     lean4-mode = {
       url = "github:leanprover-community/lean4-mode";

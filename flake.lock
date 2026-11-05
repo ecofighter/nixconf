@@ -210,6 +210,29 @@
         "type": "github"
       }
     },
+    "plamo-translate": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793892341,
+        "narHash": "sha256-cFJM2DSwJWHOZULEP5ZqJICyA097N1IKPgEL9pZV0Z8=",
+        "owner": "ecofighter",
+        "repo": "plamo-translate",
+        "rev": "65671b724cb476d271b7352ae8eedf10c8aaccd0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ecofighter",
+        "repo": "plamo-translate",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -245,6 +268,7 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
+        "plamo-translate": "plamo-translate",
         "plasma-manager": "plasma-manager"
       }
     }

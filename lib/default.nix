@@ -17,6 +17,7 @@ let
     homebrew-core
     homebrew-cask
     homebrew-anthropics
+    plamo-translate
     ;
 
   # ユーザー固有の値 (git identity、home.stateVersion など) は home/users/<username>.nix に置く。
@@ -28,6 +29,12 @@ let
   hmSharedModules = [
     # sops-nix.homeManagerModules.sops
     plasma-manager.homeModules.plasma-manager
+  ];
+
+  # plamo-translate は aarch64-darwin 専用 (launchd + MLX) なので Darwin ホストにだけ入れる
+  hmDarwinModules = [
+    plamo-translate.homeManagerModules.default
+    { services.plamo-translate.enable = true; }
   ];
 
   mkExtraSpecialArgs = isNixOS: {
@@ -133,7 +140,7 @@ in
           home-manager.extraSpecialArgs = mkExtraSpecialArgs false;
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.sharedModules = hmSharedModules;
+          home-manager.sharedModules = hmSharedModules ++ hmDarwinModules;
           users.users.${username}.home = homeDir;
           home-manager.users.${username} = {
             imports = [
