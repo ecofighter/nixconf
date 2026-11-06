@@ -41,11 +41,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1793858843,
-        "narHash": "sha256-E02opwNPxvbTEBaXIWbRWJzDKc8lI4eOyNb3aIkgGek=",
+        "lastModified": 1793895070,
+        "narHash": "sha256-SQINXJz5vim/r7vIRWXybmfbdKj1I7aWhIoJe4QYbOU=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "0c6da07b9a55b867e472bce80321ddde5e361e36",
+        "rev": "074406a40e4ee4630c681fdf170b20cd0f49509d",
         "type": "github"
       },
       "original": {
@@ -78,11 +78,11 @@
     "homebrew-anthropics": {
       "flake": false,
       "locked": {
-        "lastModified": 1793825188,
-        "narHash": "sha256-YIMBYP5sDGMoiq8c5qozWE9tekfFeaVsjyWvt68U+9c=",
+        "lastModified": 1793935585,
+        "narHash": "sha256-bktSmmESr2UGdYJLP1lxJKKImuSkhCPEbFuV1NJclMU=",
         "owner": "anthropics",
         "repo": "homebrew-tap",
-        "rev": "dc51be2143b465c7935c764ce1b137d29dc23887",
+        "rev": "c0db71fc35028b6e0520bb5a31ac9d99208900e9",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1793876925,
-        "narHash": "sha256-tgxPr8ptS9YqLGMyk/ju4hHi3ULrR9UNORBddFdZkg8=",
+        "lastModified": 1793939513,
+        "narHash": "sha256-Kn/Q+V4j3BUBVdrf4ZnbUmuPCdB/E8wcr8EmfwUkl/8=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "ed99d1040d0fdb28dff75c809c3cc199877cc452",
+        "rev": "259683a7488db9eda8e463dc12cee6eca1a4aee3",
         "type": "github"
       },
       "original": {
@@ -110,11 +110,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1793876759,
-        "narHash": "sha256-UQwtZETp8ZfjN9lmwxcz3cZEdyk08gk2Cg2v7HkhCaU=",
+        "lastModified": 1793939295,
+        "narHash": "sha256-MCsE8S0zTQyn7e3qGlXy6idfcE6ZsO/EFrZt24x9N2M=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "497ba190582d3f74e0bfda21573ebe1f27c747bb",
+        "rev": "8846b22f8f61a54caf48b9503b0386b5903bc747",
         "type": "github"
       },
       "original": {
@@ -220,11 +220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793892341,
-        "narHash": "sha256-cFJM2DSwJWHOZULEP5ZqJICyA097N1IKPgEL9pZV0Z8=",
+        "lastModified": 1793939625,
+        "narHash": "sha256-q40t89KiZmthSl0ARFAqrw/rZGE1thrioycxV3mQ2ic=",
         "owner": "ecofighter",
         "repo": "plamo-translate",
-        "rev": "65671b724cb476d271b7352ae8eedf10c8aaccd0",
+        "rev": "64a5b1bae3d10cc901fedd425d870be4d5f7d91e",
         "type": "github"
       },
       "original": {
