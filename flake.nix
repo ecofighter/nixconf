@@ -67,9 +67,7 @@
       };
 
       darwinConfigurations = {
-        "alice" = hosts.mkDarwinHost ./machines/alice;
-        "harmony" = hosts.mkDarwinHost ./machines/harmony;
-        "ShotanoMacBook-Pro" = hosts.mkDarwinHost ./machines/shotano-macbook-pro;
+        "arakaki-harmony" = hosts.mkDarwinHost ./machines/arakaki-harmony;
       };
 
       homeConfigurations."arakaki@dynabook" = hosts.mkHome { username = "arakaki"; };
